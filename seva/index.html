@@ -553,6 +553,8 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
 .p-big svg { width: 24px; height: 24px; }
 .p-go { background: radial-gradient(circle at var(--mx) 50%, var(--accent) 0%, var(--accent-deep) 100%); color: var(--on-accent); }
 .p-dark { background: var(--inverse); color: var(--on-inverse); }
+/* Accept is a yes, so it takes the extracted success green instead of Rausch */
+.p-go.p-accept { background: radial-gradient(circle at var(--mx) 50%, var(--success) 0%, color-mix(in srgb, var(--success) 80%, #000000) 100%); }
 .p-out { box-shadow: inset 0 0 0 1px var(--ink); min-height: 56px; font-size: 18px; }
 .p-out:hover { background: var(--surface); }
 .p-go .fill { position: absolute; inset: 0; background: color-mix(in srgb, var(--on-accent) 22%, transparent); transform-origin: left; transform: scaleX(0); }
@@ -1230,7 +1232,7 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
           </div>
         </div>
         <div class="p-actions">
-          <button class="p-big p-go" id="accept"><span class="fill"></span>${p('accept')}</button>
+          <button class="p-big p-go p-accept" id="accept"><span class="fill"></span>${p('accept')}</button>
           <button class="p-big p-out" data-go="0">${p('skip')}</button>
         </div>
       </div>`;
