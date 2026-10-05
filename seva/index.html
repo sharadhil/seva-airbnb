@@ -1,0 +1,1520 @@
+<!doctype html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seva Journeys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+Kannada:wght@400;500;600;700&display=swap">
+<style>
+/* Airbnb Cereal ships with the SkillUI extraction (airbnb-design/fonts). Roboto + Noto Sans Kannada are the fallbacks;
+   Cereal and Roboto have no Kannada glyphs, so Kannada text always falls through to Noto Sans Kannada. */
+@font-face {
+  font-family: "Airbnb Cereal VF";
+  src: url("../airbnb-design/fonts/AirbnbCerealVF-Regular.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+/* Layout: a quiet control rail beside one 390pt phone; on phones the rail stacks on top and the device goes edge to edge.
+   Every token below traces to airbnb-design/DESIGN.md (palette, elevation, motion). Spacing is on the 4px grid. */
+:root {
+  --bg: #ffffff;              /* theme-color */
+  --surface: #f7f7f7;         /* palette-bg-primary-hover */
+  --surface-2: #f2f2f2;       /* palette-bg-primary-disabled */
+  --ink: #222222;             /* palette-bg-primary-luxe / text-primary */
+  --ink-2: #6c6c6c;           /* palette-text-secondary */
+  --ink-3: #878787;           /* dls-button_color_disabled */
+  --hairline: #dddddd;        /* elevation0 inset ring */
+  --line-strong: #222222;
+  --accent: #ff385c;          /* palette-bg-primary-core (Rausch) */
+  --accent-deep: #da1249;     /* palette-text-brand-selected */
+  --on-accent: #ffffff;
+  --wash: #fff5f3;            /* palette-bg-primary-error, used as the rose wash behind illustrations */
+  --success: #038026;         /* palette-text-success */
+  --error: #c13515;           /* palette-bg-primary-inverse-error */
+  --info: #008489;            /* info */
+  --inverse: #222222;
+  --on-inverse: #ffffff;
+  --frame: #111111;           /* palette-bg-primary */
+  --success-wash: color-mix(in srgb, var(--success) 10%, var(--bg));
+  --info-wash: color-mix(in srgb, var(--info) 10%, var(--bg));
+
+  /* illustration-only colours for the trade icons (in the spirit of Airbnb's 3D category icons) */
+  --il-steel: #c1c1c1;
+  --il-steel-dark: #878787;
+  --il-water: #008489;
+  --il-glow: #ffb400;
+  --il-wood: #c68a5e;
+  --il-skin: #b9784f;
+  --il-hair: #2c2c2c;
+
+  /* elevation tokens, verbatim from the extraction */
+  --sh-1: 0 0 0 1px rgba(0,0,0,0.02), 0 2px 4px 0 rgba(0,0,0,0.16);
+  --sh-2: 0 6px 16px rgba(0,0,0,0.12);
+  --sh-3: 0 6px 20px rgba(0,0,0,0.2);
+  --sh-high: 0 8px 28px rgba(0,0,0,0.28);
+  --ring: 0 0 0 1px var(--hairline) inset;
+
+  /* motion tokens from the extracted easing set */
+  --ease-std: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-sheet: cubic-bezier(0.1, 0.9, 0.4, 1);
+
+  /* type */
+  --f-display: "Airbnb Cereal VF", "Roboto", "Noto Sans Kannada", system-ui, sans-serif;
+  --f-body: "Roboto", "Airbnb Cereal VF", "Noto Sans Kannada", system-ui, sans-serif;
+
+  /* radius scale (subset of the extracted scale) */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111111; --surface: #222222; --surface-2: #2c2c2c; --ink: #ffffff; --ink-2: #c1c1c1; --ink-3: #878787;
+    --hairline: #3f3f3f; --line-strong: #ffffff; --wash: #2c2c2c; --inverse: #ffffff; --on-inverse: #222222; --frame: #000000;
+    --il-steel: #dddddd; --il-hair: #111111;
+    --sh-1: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px 0 rgba(0,0,0,0.5);
+    --sh-2: 0 6px 16px rgba(0,0,0,0.5); --sh-3: 0 6px 20px rgba(0,0,0,0.6); --sh-high: 0 8px 28px rgba(0,0,0,0.7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111111; --surface: #222222; --surface-2: #2c2c2c; --ink: #ffffff; --ink-2: #c1c1c1; --ink-3: #878787;
+  --hairline: #3f3f3f; --line-strong: #ffffff; --wash: #2c2c2c; --inverse: #ffffff; --on-inverse: #222222; --frame: #000000;
+  --il-steel: #dddddd; --il-hair: #111111;
+  --sh-1: 0 0 0 1px rgba(255,255,255,0.06), 0 2px 4px 0 rgba(0,0,0,0.5);
+  --sh-2: 0 6px 16px rgba(0,0,0,0.5); --sh-3: 0 6px 20px rgba(0,0,0,0.6); --sh-high: 0 8px 28px rgba(0,0,0,0.7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding-inline: 16px;
+  padding-block: 24px;
+}
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---------- page layout ---------- */
+.stage {
+  max-width: 1127px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .stage { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+
+/* ---------- control rail ---------- */
+.rail { display: flex; flex-direction: column; gap: 32px; padding-top: 8px; min-width: 0; }
+.brand { display: flex; align-items: center; gap: 8px; color: var(--accent); }
+.brand b { font-family: var(--f-display); font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+.rail-intro { display: flex; flex-direction: column; gap: 12px; max-width: 52ch; }
+.rail-intro h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+.rail-intro p { color: var(--ink-2); font-size: 16px; }
+
+.jtabs { display: flex; gap: 32px; border-bottom: 1px solid var(--hairline); overflow-x: auto; scrollbar-width: none; }
+.jtab {
+  display: flex; align-items: center; gap: 12px; padding-bottom: 12px; position: relative;
+  color: var(--ink-2); font-family: var(--f-display); font-weight: 500; font-size: 16px; white-space: nowrap;
+  transition: color 200ms var(--ease-std);
+}
+.jtab svg { width: 40px; height: 40px; transition: transform 300ms var(--ease-spring); }
+.jtab:hover { color: var(--ink); }
+.jtab:hover svg { transform: scale(1.08); }
+.jtab::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--ink);
+  transform: scaleX(0); transition: transform 300ms var(--ease-std);
+}
+.jtab[aria-selected="true"] { color: var(--ink); }
+.jtab[aria-selected="true"]::after { transform: scaleX(1); }
+
+.persona { display: flex; gap: 16px; align-items: flex-start; }
+.persona .ava-sm { flex: none; }
+.persona div { min-width: 0; }
+.persona b { font-family: var(--f-display); font-size: 16px; display: block; }
+.persona span { color: var(--ink-2); }
+
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.steps li + li { border-top: 1px solid var(--hairline); }
+.step-btn {
+  width: 100%; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: center;
+  padding-block: 12px; border-radius: var(--r-sm); transition: background 200ms var(--ease-std);
+}
+.step-btn:hover { background: var(--surface); }
+.step-n {
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  box-shadow: var(--ring); font-weight: 500; font-size: 13px; color: var(--ink-2);
+  transition: background 200ms var(--ease-std), color 200ms var(--ease-std);
+}
+.step-btn[aria-current="step"] .step-n { background: var(--ink); color: var(--bg); box-shadow: none; }
+.step-btn[aria-current="step"] .step-t { color: var(--ink); font-weight: 500; }
+.step-t { color: var(--ink-2); font-size: 15px; }
+.step-btn.done .step-n { color: var(--ink); }
+
+.controls { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+.ctl { display: flex; flex-direction: column; gap: 8px; }
+.ctl-label { font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+.seg { display: inline-flex; padding: 4px; border-radius: var(--r-pill); background: var(--surface-2); gap: 4px; }
+.seg button { padding: 8px 16px; border-radius: var(--r-pill); font-weight: 500; color: var(--ink-2); transition: background 200ms var(--ease-std), color 200ms var(--ease-std), box-shadow 200ms var(--ease-std); }
+.seg button[aria-pressed="true"] { background: var(--bg); color: var(--ink); box-shadow: var(--sh-1); }
+.ghost-btn {
+  padding: 12px 20px; border-radius: var(--r-sm); box-shadow: inset 0 0 0 1px var(--ink); font-weight: 500;
+  transition: background 200ms var(--ease-std), transform 200ms var(--ease-std);
+}
+.ghost-btn:hover { background: var(--surface); }
+.ghost-btn:active { transform: scale(0.96); }
+
+.sys-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+.sys-notes div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.sys-notes b { font-family: var(--f-display); font-weight: 500; font-size: 14px; }
+.sys-notes span { color: var(--ink-2); font-size: 13px; }
+.swatches { display: flex; gap: 4px; padding-top: 4px; }
+.swatches i { width: 20px; height: 20px; border-radius: 50%; box-shadow: var(--ring); }
+
+@media (max-width: 900px) {
+  .rail { gap: 20px; }
+  .rail-intro h1 { font-size: 26px; }
+  .sys-notes { display: none; }
+}
+
+/* ---------- device ---------- */
+.device {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px);
+  width: 390px; height: min(820px, calc(100vh - 48px)); min-height: 680px;
+  border-radius: 48px; padding: 8px; background: var(--frame); box-shadow: var(--sh-high);
+}
+.screen-wrap {
+  position: relative; width: 100%; height: 100%; border-radius: 40px; overflow: hidden;
+  background: var(--bg); isolation: isolate;
+}
+@media (max-width: 900px) {
+  .device { position: relative; top: 0; width: 100%; max-width: 100%; height: 780px; min-height: 0; border-radius: 32px; padding: 4px; }
+  .screen-wrap { border-radius: 28px; }
+}
+
+.osbar {
+  height: 44px; flex: none; display: flex; align-items: center; justify-content: space-between;
+  padding-inline: 28px; font-family: var(--f-display); font-weight: 600; font-size: 14px;
+}
+.osbar .bars { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
+.osbar .bars i { width: 3px; border-radius: 1px; background: var(--ink); }
+.osbar .bars i.off { background: var(--hairline); }
+
+.scr {
+  position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--bg);
+}
+.scroll { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.pad { padding-inline: 24px; }
+
+/* ---------- shared components (customer) ---------- */
+.circle-btn {
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--bg);
+  box-shadow: var(--sh-1); transition: transform 200ms var(--ease-std);
+}
+.circle-btn:active { transform: scale(0.92); }
+.circle-btn svg { width: 16px; height: 16px; }
+.topnav { display: flex; align-items: center; justify-content: space-between; padding: 8px 24px 12px; }
+
+.brand-btn {
+  --mx: 50%;
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 12px 24px; border-radius: var(--r-sm);
+  background: radial-gradient(circle at var(--mx) 50%, var(--accent) 0%, var(--accent-deep) 100%);
+  color: var(--on-accent); font-family: var(--f-display); font-weight: 600; font-size: 16px;
+  transition: transform 200ms var(--ease-std), filter 200ms var(--ease-std);
+}
+.brand-btn:active { transform: scale(0.96); }
+.brand-btn[aria-busy="true"] { pointer-events: none; }
+.dark-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 24px;
+  border-radius: var(--r-sm); background: var(--inverse); color: var(--on-inverse); font-family: var(--f-display); font-weight: 600; font-size: 16px;
+  transition: transform 200ms var(--ease-std);
+}
+.dark-btn:active { transform: scale(0.96); }
+.out-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 20px;
+  border-radius: var(--r-sm); box-shadow: inset 0 0 0 1px var(--ink); font-family: var(--f-display); font-weight: 600; font-size: 16px;
+  transition: transform 200ms var(--ease-std), background 200ms var(--ease-std);
+}
+.out-btn:active { transform: scale(0.96); }
+.out-btn svg, .dark-btn svg, .brand-btn svg { width: 18px; height: 18px; }
+.link { text-decoration: underline; font-weight: 600; font-family: var(--f-display); text-underline-offset: 2px; }
+
+.footbar {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 24px 24px; border-top: 1px solid var(--hairline); background: var(--bg);
+}
+.footbar .fb-price { min-width: 0; display: flex; flex-direction: column; }
+.footbar .fb-price b { font-family: var(--f-display); font-size: 18px; font-weight: 600; }
+.footbar .fb-price span { font-size: 13px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+.footbar .brand-btn, .footbar .dark-btn { flex: none; }
+
+.sec { padding-block: 24px; }
+.sec + .sec { border-top: 1px solid var(--hairline); }
+.sec-h { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.sec-h .arrow { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; }
+.sec-h .arrow svg { width: 12px; height: 12px; }
+
+.row { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 16px; align-items: start; }
+.row svg { width: 24px; height: 24px; }
+.row b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 16px; }
+.row span { color: var(--ink-2); }
+.rows { display: flex; flex-direction: column; gap: 20px; }
+
+.pill-badge {
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: var(--r-pill);
+  background: var(--bg); color: var(--ink); font-family: var(--f-display); font-weight: 600; font-size: 13px; box-shadow: var(--sh-1);
+}
+.pill-badge svg { width: 14px; height: 14px; color: var(--accent); }
+
+/* home */
+.greet { padding: 4px 24px 0; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.search-pill {
+  margin: 16px 24px 0; display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 24px;
+  border-radius: var(--r-pill); background: var(--bg); box-shadow: var(--sh-2), var(--ring);
+  transition: box-shadow 200ms var(--ease-std), transform 200ms var(--ease-std);
+  width: calc(100% - 48px);
+}
+.search-pill:hover { box-shadow: var(--sh-3), var(--ring); }
+.search-pill:active { transform: scale(0.98); }
+.sp-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.sp-text b { font-family: var(--f-display); font-weight: 600; font-size: 15px; }
+.sp-text span { color: var(--ink-2); font-size: 13px; }
+.mic-btn {
+  flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: var(--on-accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep)); position: relative;
+}
+.mic-btn svg { width: 24px; height: 24px; }
+.mic-btn::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 0 var(--accent);
+  animation: beckon 2400ms var(--ease-out) infinite;
+}
+@keyframes beckon { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--accent) 0%, transparent); } }
+
+.cats { display: flex; gap: 24px; padding: 20px 24px 0; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--hairline); }
+.cats::-webkit-scrollbar { display: none; }
+.cat {
+  flex: none; display: flex; flex-direction: column; align-items: center; gap: 4px; padding-bottom: 12px; position: relative;
+  color: var(--ink-2); font-size: 12px; font-weight: 500; min-width: 56px;
+}
+.cat svg { width: 36px; height: 36px; transition: transform 300ms var(--ease-spring); }
+.cat:hover svg { transform: scale(1.1) rotate(-4deg); }
+.cat[aria-selected="true"] { color: var(--ink); }
+.cat[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--ink); }
+
+.addr { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 13px; padding: 16px 24px 0; }
+.addr svg { width: 16px; height: 16px; color: var(--ink); }
+.addr b { color: var(--ink); font-weight: 500; }
+
+.upcoming {
+  margin: 16px 24px 0; padding: 16px; border-radius: var(--r-lg); box-shadow: var(--sh-2), var(--ring);
+  display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: center; text-align: left; width: calc(100% - 48px);
+}
+.upcoming b { display: block; font-family: var(--f-display); font-weight: 600; font-size: 15px; }
+.upcoming span { color: var(--ink-2); font-size: 13px; }
+.live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); margin-right: 4px; animation: blink 1600ms var(--ease-out) infinite; }
+@keyframes blink { 50% { opacity: 0.3; } }
+
+.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-top: 16px; }
+.tile { display: block; width: 100%; min-width: 0; text-align: left; }
+.tile-img {
+  position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1 / 1; max-width: 100%;
+  border-radius: var(--r-lg); background: var(--wash); overflow: hidden;
+}
+.tile-img svg.il { width: 48%; height: auto; transition: transform 400ms var(--ease-spring); }
+.tile:hover .tile-img svg.il { transform: scale(1.06); }
+.tile-img .pill-badge { position: absolute; top: 8px; left: 8px; }
+.tile .meta { display: block; padding-top: 8px; }
+.tile .meta b, .tile .meta span { display: block; overflow-wrap: anywhere; }
+.tile .meta b { font-family: var(--f-display); font-weight: 500; font-size: 15px; }
+.tile .meta span { color: var(--ink-2); font-size: 13px; }
+
+.trust { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-radius: var(--r-lg); background: var(--surface); }
+.trust .row svg { color: var(--accent); }
+
+.fam {
+  display: grid; grid-template-columns: 48px minmax(0, 1fr) 16px; gap: 12px; align-items: center;
+}
+.fam b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 15px; }
+.fam span { color: var(--ink-2); font-size: 13px; }
+.fam > svg { width: 16px; height: 16px; }
+
+.tabbar { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--hairline); padding: 8px 8px 20px; background: var(--bg); }
+.tabbar span { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: var(--ink-2); font-weight: 500; text-align: center; }
+.tabbar span svg { width: 24px; height: 24px; }
+.tabbar span.on { color: var(--accent); }
+
+/* avatars */
+.ava { position: relative; border-radius: 50%; overflow: visible; flex: none; }
+.ava > svg.face { width: 100%; height: 100%; border-radius: 50%; display: block; }
+.ava .vbadge {
+  position: absolute; right: -4px; bottom: 0; width: 36%; height: 36%; border-radius: 50%; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep)); color: var(--on-accent); box-shadow: 0 0 0 3px var(--bg);
+}
+.ava .vbadge svg { width: 60%; height: 60%; }
+.ava-sm { width: 48px; height: 48px; }
+.initial { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--inverse); color: var(--on-inverse); font-family: var(--f-display); font-weight: 600; font-size: 18px; }
+
+/* voice sheet */
+.c-voice { background: var(--bg); }
+.v-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 24px; }
+.lang-chip { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--hairline); font-weight: 500; font-size: 13px; }
+.lang-chip svg { width: 14px; height: 14px; }
+.v-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; padding: 0 24px; text-align: center; }
+.v-status { font-family: var(--f-display); font-size: 15px; color: var(--ink-2); font-weight: 500; min-height: 24px; display: flex; align-items: center; gap: 8px; }
+.v-transcript { font-family: var(--f-display); font-size: 28px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; min-height: 112px; max-width: 18ch; text-wrap: balance; }
+.v-transcript .w { display: inline-block; animation: wordIn 300ms var(--ease-std) both; }
+.v-transcript .ghost { color: var(--ink-3); font-weight: 500; }
+@keyframes wordIn { from { opacity: 0; transform: translateY(8px); } }
+.mic-xl {
+  position: relative; width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; color: var(--on-accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep)); box-shadow: var(--sh-3);
+  transition: transform 300ms var(--ease-spring);
+}
+.mic-xl:active { transform: scale(0.94); }
+.mic-xl svg { width: 40px; height: 40px; position: relative; z-index: 1; }
+.mic-xl .ripple { position: absolute; inset: 0; border-radius: 50%; background: var(--accent); opacity: 0; }
+.listening .mic-xl .ripple { animation: ripple 2000ms var(--ease-out) infinite; }
+.listening .mic-xl .ripple:nth-child(2) { animation-delay: 660ms; }
+.listening .mic-xl .ripple:nth-child(3) { animation-delay: 1320ms; }
+@keyframes ripple { 0% { opacity: 0.35; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6); } }
+.understanding .mic-xl { background: var(--inverse); color: var(--on-inverse); }
+.wave { display: flex; gap: 4px; align-items: center; height: 32px; }
+.wave i { width: 4px; height: 8px; border-radius: 2px; background: var(--accent); transition: height 120ms linear; }
+.understanding .wave i, .idle .wave i { background: var(--hairline); }
+.dots { display: inline-flex; gap: 4px; }
+.dots i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: dot 1000ms var(--ease-out) infinite; }
+.dots i:nth-child(2) { animation-delay: 160ms; }
+.dots i:nth-child(3) { animation-delay: 320ms; }
+@keyframes dot { 0%, 100% { opacity: 0.25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-4px); } }
+.v-try { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.v-try p { font-size: 13px; color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.chip { padding: 8px 16px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--hairline); font-size: 14px; transition: box-shadow 200ms var(--ease-std), transform 200ms var(--ease-std); }
+.chip:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.chip:active { transform: scale(0.96); }
+.v-foot { padding: 16px 24px 32px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.v-net { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-2); }
+.v-net svg { width: 14px; height: 14px; }
+
+/* service */
+.hero-img { position: relative; height: 220px; margin: 0 24px; border-radius: var(--r-xl); background: var(--wash); display: grid; place-items: center; overflow: hidden; }
+.hero-img svg.il { width: 140px; height: 140px; animation: floaty 4000ms ease-in-out infinite; }
+@keyframes floaty { 50% { transform: translateY(-6px); } }
+.hero-img .pill-badge { position: absolute; top: 16px; left: 16px; }
+.svc-title { display: flex; flex-direction: column; gap: 4px; padding-top: 24px; }
+.svc-title h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.svc-title p { color: var(--ink-2); font-size: 15px; }
+.heard {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; padding: 16px; border-radius: var(--r-lg); box-shadow: var(--ring); align-items: start;
+}
+.heard .hq { width: 40px; height: 40px; border-radius: 50%; background: var(--wash); display: grid; place-items: center; color: var(--accent); }
+.heard .hq svg { width: 18px; height: 18px; }
+.heard q { font-family: var(--f-display); font-size: 16px; font-weight: 500; display: block; quotes: "“" "”"; }
+.heard small { display: block; color: var(--ink-2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; margin-bottom: 4px; }
+.heard .link { font-size: 14px; display: inline-block; margin-top: 8px; }
+.price-big { display: flex; align-items: baseline; gap: 8px; padding-top: 8px; }
+.price-big b { font-family: var(--f-display); font-size: 40px; font-weight: 700; letter-spacing: -0.02em; }
+.price-big span { color: var(--ink-2); font-size: 15px; }
+.fixed-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: var(--r-pill); background: var(--success-wash); color: var(--success); font-weight: 600; font-size: 13px; }
+.fixed-tag svg { width: 14px; height: 14px; }
+.price-note { color: var(--ink-2); font-size: 15px; padding-top: 8px; max-width: 40ch; }
+
+/* slots */
+.page-h { padding: 0 24px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.page-sub { padding: 4px 24px 0; color: var(--ink-2); font-size: 15px; }
+.days { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 20px 24px 4px; }
+.days::-webkit-scrollbar { display: none; }
+.day {
+  flex: none; width: 64px; padding: 12px 4px; border-radius: var(--r-lg); box-shadow: inset 0 0 0 1px var(--hairline);
+  display: flex; flex-direction: column; align-items: center; gap: 4px; transition: box-shadow 200ms var(--ease-std), background 200ms var(--ease-std), transform 200ms var(--ease-std);
+}
+.day small { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.day b { font-family: var(--f-display); font-size: 20px; font-weight: 600; }
+.day:active { transform: scale(0.96); }
+.day[aria-pressed="true"] { background: var(--inverse); color: var(--on-inverse); box-shadow: none; }
+.day[aria-pressed="true"] small { color: var(--on-inverse); opacity: 0.8; }
+.slot-group { display: flex; flex-direction: column; gap: 12px; }
+.slot-group > p { font-size: 13px; color: var(--ink-2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+.slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.slot {
+  padding: 16px; border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--hairline); display: flex; flex-direction: column; gap: 4px;
+  transition: box-shadow 200ms var(--ease-std), background 200ms var(--ease-std), transform 200ms var(--ease-std);
+}
+.slot b { font-family: var(--f-display); font-size: 16px; font-weight: 600; }
+.slot span { font-size: 12px; color: var(--ink-2); }
+.slot span.few { color: var(--accent-deep); font-weight: 500; }
+.slot:hover:not(:disabled) { box-shadow: inset 0 0 0 1px var(--ink); }
+.slot:active:not(:disabled) { transform: scale(0.97); }
+.slot[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink); background: var(--surface); }
+.slot:disabled { cursor: not-allowed; background: var(--surface-2); color: var(--ink-3); }
+.slot:disabled b { color: var(--ink-3); text-decoration: line-through; }
+.switch-row { display: grid; grid-template-columns: minmax(0, 1fr) 48px; gap: 16px; align-items: center; text-align: left; width: 100%; }
+.switch-row b { display: block; font-family: var(--f-display); font-weight: 500; font-size: 16px; }
+.switch-row span { color: var(--ink-2); font-size: 14px; }
+.switch { width: 48px; height: 32px; border-radius: var(--r-pill); background: var(--hairline); position: relative; transition: background 200ms var(--ease-std); }
+.switch::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); box-shadow: var(--sh-1); transition: transform 300ms var(--ease-spring); }
+[aria-checked="true"] .switch { background: var(--inverse); }
+[aria-checked="true"] .switch::after { transform: translateX(16px); }
+.spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid color-mix(in srgb, currentColor 30%, transparent); border-top-color: currentColor; animation: spin 800ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* booked */
+.ok-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 8px 24px 0; }
+.ok-check { width: 56px; height: 56px; border-radius: 50%; background: var(--success); color: var(--on-accent); display: grid; place-items: center; animation: pop 500ms var(--ease-spring) both; }
+.ok-check svg { width: 28px; height: 28px; }
+.ok-check path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw 400ms 250ms var(--ease-std) forwards; }
+@keyframes pop { from { transform: scale(0.4); opacity: 0; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.ok-head h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.ok-head p { color: var(--ink-2); font-size: 16px; }
+.host-card {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; align-items: center;
+  padding: 24px 20px; border-radius: var(--r-xl); box-shadow: var(--sh-3); background: var(--bg);
+  animation: rise 500ms 150ms var(--ease-std) both;
+}
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+.host-id { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; min-width: 0; }
+.host-id .ava { width: 96px; height: 96px; }
+.host-id b { font-family: var(--f-display); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.host-id span { font-size: 13px; color: var(--ink-2); display: inline-flex; align-items: center; gap: 4px; }
+.host-id span svg { width: 12px; height: 12px; color: var(--accent); }
+.host-stats { display: flex; flex-direction: column; min-width: 0; }
+.host-stats div { padding-block: 8px; display: flex; flex-direction: column; }
+.host-stats div + div { border-top: 1px solid var(--hairline); }
+.host-stats b { font-family: var(--f-display); font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 2px; }
+.host-stats b svg { width: 12px; height: 12px; }
+.host-stats span { font-size: 11px; font-weight: 500; color: var(--ink-2); }
+.otp-card { padding: 20px; border-radius: var(--r-lg); background: var(--surface); display: flex; flex-direction: column; gap: 12px; }
+.otp-card p { font-size: 14px; color: var(--ink-2); }
+.otp-card .lbl { font-family: var(--f-display); font-weight: 600; font-size: 16px; color: var(--ink); }
+.otp-digits { display: flex; gap: 8px; }
+.otp-digits b { width: 52px; height: 64px; border-radius: var(--r-md); background: var(--bg); box-shadow: var(--ring); display: grid; place-items: center; font-family: var(--f-display); font-size: 30px; font-weight: 700; animation: rise 400ms var(--ease-std) both; }
+.otp-digits b:nth-child(2) { animation-delay: 80ms; } .otp-digits b:nth-child(3) { animation-delay: 160ms; } .otp-digits b:nth-child(4) { animation-delay: 240ms; }
+.track { display: flex; flex-direction: column; gap: 0; }
+.track li { list-style: none; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; position: relative; padding-bottom: 16px; }
+.track li::before { content: ""; position: absolute; left: 11px; top: 20px; bottom: 0; width: 2px; background: var(--hairline); }
+.track li:last-child::before { display: none; }
+.track li i { width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--hairline); background: var(--bg); position: relative; z-index: 1; }
+.track li.on i { box-shadow: none; background: var(--success); }
+.track li.now i { box-shadow: inset 0 0 0 2px var(--success); }
+.track li b { font-family: var(--f-display); font-weight: 500; font-size: 15px; display: block; }
+.track li span { font-size: 13px; color: var(--ink-2); }
+.track { padding: 0; margin: 0; }
+
+/* ---------- partner ----------
+   Same Airbnb language as the customer side (white surfaces, #DDDDDD hairlines, Rausch reserve button,
+   listing-card media with a white pill badge, stat strips, "price details" rows, round guest-counter steppers).
+   Sunlight and gloves are handled with size, not new styling: 17px base text, 64px buttons, 48px steppers. */
+.p { font-size: 17px; }
+.p-top {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 20px 12px;
+  border-bottom: 1px solid var(--hairline); font-family: var(--f-display); font-size: 14px;
+}
+.p-top .stat-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-pill); box-shadow: var(--ring); font-weight: 600; white-space: nowrap; }
+.p-top .stat-pill i.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+.p-top .stat-pill.weak { background: var(--wash); box-shadow: none; color: var(--accent-deep); }
+.p-top .bars { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
+.p-top .bars i { width: 3px; border-radius: 1px; background: currentColor; }
+.p-top .bars i.off { opacity: 0.25; }
+.p-top .earn { white-space: nowrap; color: var(--ink-2); }
+.p-top .earn b { color: var(--ink); font-weight: 600; }
+.p-body { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.p-body::-webkit-scrollbar { display: none; }
+.p-actions { flex: none; padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--hairline); background: var(--bg); }
+
+.p-big {
+  --mx: 50%;
+  position: relative; overflow: hidden; width: 100%; min-height: 64px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-family: var(--f-display); font-weight: 600; font-size: 20px; transition: transform 200ms var(--ease-std), background 200ms var(--ease-std);
+}
+.p-big:active { transform: scale(0.97); }
+.p-big svg { width: 24px; height: 24px; }
+.p-go { background: radial-gradient(circle at var(--mx) 50%, var(--accent) 0%, var(--accent-deep) 100%); color: var(--on-accent); }
+.p-dark { background: var(--inverse); color: var(--on-inverse); }
+/* Accept is a yes, so it takes the extracted success green instead of Rausch */
+.p-go.p-accept { background: radial-gradient(circle at var(--mx) 50%, var(--success) 0%, color-mix(in srgb, var(--success) 80%, #000000) 100%); }
+.p-out { box-shadow: inset 0 0 0 1px var(--ink); min-height: 56px; font-size: 18px; }
+.p-out:hover { background: var(--surface); }
+.p-go .fill { position: absolute; inset: 0; background: color-mix(in srgb, var(--on-accent) 22%, transparent); transform-origin: left; transform: scaleX(0); }
+.p-go.pressed .fill { animation: fillx 500ms var(--ease-std) forwards; }
+@keyframes fillx { to { transform: scaleX(1); } }
+
+/* listing-style job card */
+.job-media { position: relative; border-radius: var(--r-lg); overflow: hidden; }
+.job-media .pill-badge { position: absolute; top: 12px; left: 12px; font-size: 14px; padding: 8px 12px; }
+.job-media .pill-badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: blink 1000ms linear infinite; }
+.p-timer {
+  position: absolute; top: 8px; right: 8px; width: 56px; height: 56px; border-radius: 50%; background: var(--bg); box-shadow: var(--sh-2);
+  display: grid; place-items: center; font-family: var(--f-display); font-weight: 600; font-size: 14px;
+}
+.p-timer svg { position: absolute; inset: 4px; width: 48px; height: 48px; transform: rotate(-90deg); }
+.p-timer circle.track-c { stroke: var(--hairline); }
+.p-timer circle.run { stroke: var(--accent); transition: stroke-dashoffset 1000ms linear; }
+.p-title { display: flex; flex-direction: column; gap: 4px; }
+.p-title h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.p-title p { color: var(--ink-2); font-size: 17px; display: flex; align-items: center; gap: 4px; }
+.p-title p svg { width: 18px; height: 18px; flex: none; }
+
+.stat-strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-radius: var(--r-md); box-shadow: var(--ring); padding-block: 16px; }
+.stat-strip div { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding-inline: 8px; min-width: 0; }
+.stat-strip div + div { border-left: 1px solid var(--hairline); }
+.stat-strip b { font-family: var(--f-display); font-size: 22px; font-weight: 600; }
+.stat-strip span { font-size: 14px; color: var(--ink-2); }
+
+.earn-row { display: flex; flex-direction: column; gap: 4px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.earn-row .lbl { font-size: 15px; color: var(--ink-2); }
+.earn-row .amt { font-family: var(--f-display); font-size: 40px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.earn-row .amt span { font-size: 18px; font-weight: 500; color: var(--ink-2); letter-spacing: 0; }
+.earn-row .how { font-size: 15px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+
+.map { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--ring); background: var(--surface-2); }
+.map svg { display: block; width: 100%; height: auto; }
+.map .rd { stroke: var(--bg); }
+.map .blk { fill: var(--surface-2); }
+.map .route { stroke: var(--ink); }
+.map .route-anim { stroke-dasharray: 400; stroke-dashoffset: 400; animation: route 1600ms 200ms var(--ease-std) forwards; }
+@keyframes route { to { stroke-dashoffset: 0; } }
+
+.p-notice {
+  display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px; border-radius: var(--r-lg);
+  background: var(--surface); transition: background 300ms var(--ease-std);
+}
+.p-notice .ic { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); box-shadow: var(--sh-1); color: var(--ink); }
+.p-notice .ic svg { width: 22px; height: 22px; }
+.p-notice b { display: block; font-family: var(--f-display); font-size: 17px; font-weight: 600; }
+.p-notice span { font-size: 15px; color: var(--ink-2); }
+.p-notice.sent { background: var(--success-wash); }
+.p-notice.sent .ic { background: var(--success); color: var(--on-accent); box-shadow: none; }
+.p-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.p-hero h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.p-hero p { font-size: 17px; color: var(--ink-2); }
+.p-addr { display: flex; flex-direction: column; gap: 4px; }
+.p-addr b { font-family: var(--f-display); font-size: 24px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+.p-addr span { font-size: 17px; color: var(--ink-2); }
+.p-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* price details */
+.p-bill { display: flex; flex-direction: column; }
+.p-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding-block: 12px; }
+.p-line b { font-family: var(--f-body); font-size: 17px; font-weight: 400; }
+.p-line .amt { font-size: 17px; font-variant-numeric: tabular-nums; }
+.p-line small { display: block; font-size: 14px; color: var(--ink-2); }
+.p-line.added { animation: rise 400ms var(--ease-spring) both; }
+.p-line .u { text-decoration: underline; text-underline-offset: 2px; }
+.stepper { display: inline-flex; align-items: center; gap: 12px; }
+.stepper button { width: 48px; height: 48px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink-3); display: grid; place-items: center; color: var(--ink-2); transition: transform 200ms var(--ease-std), box-shadow 200ms var(--ease-std); }
+.stepper button:hover { box-shadow: inset 0 0 0 1px var(--ink); color: var(--ink); }
+.stepper button:active { transform: scale(0.92); }
+.stepper button svg { width: 18px; height: 18px; }
+.stepper output { min-width: 24px; text-align: center; font-size: 17px; }
+.p-add {
+  width: 100%; min-height: 64px; padding: 0 16px; border-radius: var(--r-md); box-shadow: var(--ring); display: grid; grid-template-columns: 40px minmax(0, 1fr) 16px; gap: 12px; align-items: center;
+  font-family: var(--f-display); font-weight: 600; font-size: 17px; text-align: left; transition: box-shadow 200ms var(--ease-std), transform 200ms var(--ease-std);
+}
+.p-add:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.p-add:active { transform: scale(0.98); }
+.p-add .plus { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; }
+.p-add svg { width: 18px; height: 18px; }
+.p-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 16px; border-top: 1px solid var(--hairline); }
+.p-total b { font-family: var(--f-display); font-size: 18px; font-weight: 600; }
+.p-total output { font-family: var(--f-display); font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.p-note { font-size: 15px; color: var(--ink-2); display: flex; gap: 8px; align-items: flex-start; }
+.p-note svg { width: 20px; height: 20px; flex: none; color: var(--accent); margin-top: 2px; }
+
+.sheet-scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 10; animation: fadeIn 300ms var(--ease-std) both; }
+.sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 11; background: var(--bg); border-radius: var(--r-xl) var(--r-xl) 0 0;
+  padding: 12px 20px 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--sh-high);
+  animation: sheetUp 400ms var(--ease-sheet) both; max-height: 88%; overflow-y: auto;
+}
+.sheet .grab { width: 40px; height: 4px; border-radius: 2px; background: var(--hairline); align-self: center; }
+.sheet h2 { font-size: 22px; font-weight: 700; }
+.sheet .sub { font-size: 15px; color: var(--ink-2); }
+@keyframes sheetUp { from { transform: translateY(100%); } }
+@keyframes fadeIn { from { opacity: 0; } }
+.parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.part {
+  min-height: 96px; padding: 16px; border-radius: var(--r-md); box-shadow: var(--ring);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 8px; text-align: left;
+  transition: transform 200ms var(--ease-std), box-shadow 200ms var(--ease-std), background 200ms var(--ease-std);
+}
+.part:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.part:active { transform: scale(0.96); }
+.part b { font-family: var(--f-display); font-size: 17px; font-weight: 600; line-height: 1.25; }
+.part span { font-size: 16px; color: var(--ink-2); }
+.part[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink); background: var(--surface); }
+
+.otp-boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.otp-boxes b { height: 64px; border-radius: var(--r-md); box-shadow: var(--ring); display: grid; place-items: center; font-family: var(--f-display); font-size: 28px; font-weight: 600; transition: box-shadow 200ms var(--ease-std); }
+.otp-boxes b.cur { box-shadow: inset 0 0 0 2px var(--ink); }
+.otp-boxes.bad { animation: shake 400ms var(--ease-std); }
+.otp-boxes.bad b { box-shadow: inset 0 0 0 2px var(--error); background: var(--wash); }
+@keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.keypad button { height: 60px; border-radius: var(--r-md); background: var(--surface); font-family: var(--f-display); font-size: 24px; font-weight: 500; display: grid; place-items: center; transition: transform 150ms var(--ease-std), background 150ms var(--ease-std); }
+.keypad button:active { transform: scale(0.94); background: var(--surface-2); }
+.keypad button svg { width: 24px; height: 24px; }
+.hint { font-size: 14px; color: var(--ink-2); text-align: center; }
+
+.wait-card { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 16px 8px 8px; }
+.wait-card .pulse { width: 64px; height: 64px; border-radius: 50%; background: var(--wash); color: var(--accent); display: grid; place-items: center; position: relative; }
+.wait-card .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; animation: ripple 1600ms var(--ease-out) infinite; background: var(--accent); }
+.wait-card .pulse svg { width: 28px; height: 28px; position: relative; z-index: 1; }
+.wait-card .amt { font-family: var(--f-display); font-size: 28px; font-weight: 700; }
+
+.paid-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: var(--r-pill); background: var(--success-wash); color: var(--success); font-family: var(--f-display); font-weight: 600; font-size: 16px; animation: pop 500ms 300ms var(--ease-spring) both; align-self: flex-start; }
+.paid-pill svg { width: 18px; height: 18px; }
+.p-hero .paid-amt { color: var(--ink); font-family: var(--f-display); font-size: 56px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.p-hero .paid-sub { font-size: 17px; color: var(--ink-2); padding-top: 8px; }
+
+/* screen transitions */
+.enter-fwd { animation: enterFwd 350ms var(--ease-std) both; }
+.enter-back { animation: enterBack 350ms var(--ease-std) both; }
+.enter-up { animation: sheetUp 450ms var(--ease-sheet) both; }
+.leave { animation: leave 200ms var(--ease-out) both; pointer-events: none; }
+@keyframes enterFwd { from { opacity: 0; transform: translateX(32px); } }
+@keyframes enterBack { from { opacity: 0; transform: translateX(-32px); } }
+@keyframes leave { to { opacity: 0; } }
+
+/* Kannada runs longer and its matras need more size to stay legible for older eyes */
+:root[lang="kn"] .scr { line-height: 1.6; }
+:root[lang="kn"] .sp-text span, :root[lang="kn"] .row span, :root[lang="kn"] .tile .meta span, :root[lang="kn"] .addr,
+:root[lang="kn"] .upcoming span, :root[lang="kn"] .fam span, :root[lang="kn"] .page-sub, :root[lang="kn"] .slot span,
+:root[lang="kn"] .host-id span, :root[lang="kn"] .footbar .fb-price span, :root[lang="kn"] .otp-card p { font-size: 15px; }
+:root[lang="kn"] .cat, :root[lang="kn"] .host-stats span, :root[lang="kn"] .day small { font-size: 13px; }
+:root[lang="kn"] .tabbar span { font-size: 12px; }
+:root[lang="kn"] .stat-strip span, :root[lang="kn"] .p-line small { font-size: 15px; }
+
+/* phones: put the device right under the journey tabs, controls after it */
+@media (max-width: 900px) {
+  .stage { display: flex; flex-direction: column; gap: 20px; }
+  .rail { display: contents; }
+  .brand { order: 1; } .rail-intro { order: 2; } .jtabs { order: 3; } .persona { order: 4; }
+  .device { order: 5; } .controls { order: 6; } .steps { order: 7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+}
+</style>
+</head>
+<body>
+
+<main class="stage">
+  <aside class="rail" aria-label="Prototype controls">
+    <div class="brand" aria-label="Seva">
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5c1 0 1.9.5 2.5 1.3l9 11.6c1.7 2.2 1 5.4-1.5 6.6-1.5.8-3.3.6-4.6-.4L16 18.3l-5.4 4.3c-1.3 1-3.1 1.2-4.6.4-2.5-1.2-3.2-4.4-1.5-6.6l9-11.6c.6-.8 1.5-1.3 2.5-1.3Z" fill="currentColor"/><circle cx="16" cy="26.5" r="2.5" fill="currentColor"/></svg>
+      <b>seva</b>
+    </div>
+    <div class="rail-intro">
+      <h1 id="j-title">Book a plumber by voice, in Kannada</h1>
+      <p id="j-desc">Tap through the phone, or jump to any step below. Every colour, shadow and curve comes from the Airbnb system extracted with SkillUI.</p>
+    </div>
+    <div class="jtabs" role="tablist" aria-label="Journey">
+      <button class="jtab" role="tab" id="tab-c" aria-selected="true" data-journey="c"></button>
+      <button class="jtab" role="tab" id="tab-p" aria-selected="false" data-journey="p"></button>
+    </div>
+    <div class="persona" id="persona"></div>
+    <ol class="steps" id="steps"></ol>
+    <div class="controls">
+      <div class="ctl">
+        <span class="ctl-label" id="lang-l">App language</span>
+        <div class="seg" role="group" aria-labelledby="lang-l">
+          <button id="lang-kn" aria-pressed="true" data-lang="kn">ಕನ್ನಡ</button>
+          <button id="lang-en" aria-pressed="false" data-lang="en">English</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Prototype</span>
+        <button class="ghost-btn" id="restart">Start over</button>
+      </div>
+    </div>
+    <div class="sys-notes">
+      <div><b>Colour</b><span>Rausch for the one action per screen. Ink, greys and #DDDDDD hairlines do the rest.</span>
+        <span class="swatches"><i style="background:#ff385c"></i><i style="background:#da1249"></i><i style="background:#222222"></i><i style="background:#6c6c6c"></i><i style="background:#f7f7f7"></i><i style="background:#038026"></i></span></div>
+      <div><b>Type</b><span>Airbnb Cereal for display, Roboto for body. Noto Sans Kannada for Kannada text, sized to wrap without clipping.</span></div>
+      <div><b>Partner mode</b><span>Same components as the customer app, sized for gloves and sunlight: 64px buttons, 48px steppers, 17px base text.</span></div>
+      <div><b>Motion</b><span>Spring cubic-bezier(0.34,1.56,0.64,1) for confirmations, the sheet curve for bottom sheets, 200ms press scale.</span></div>
+    </div>
+  </aside>
+
+  <div class="device" aria-label="Phone prototype">
+    <div class="screen-wrap" id="screen"></div>
+  </div>
+</main>
+
+<script>
+(() => {
+  /* ---------------- icons (24px line icons, 2px stroke, round caps — Airbnb style) ---------------- */
+  const sv = (d, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${d}</svg>`;
+  const I = {
+    mic: sv('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'),
+    back: sv('<path d="M15 5l-7 7 7 7"/>'),
+    close: sv('<path d="M6 6l12 12M18 6L6 18"/>'),
+    chev: sv('<path d="M9 5l7 7-7 7"/>'),
+    arrow: sv('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+    down: sv('<path d="M6 9l6 6 6-6"/>'),
+    pin: sv('<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>'),
+    shield: sv('<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3Z"/><path d="M9 12l2 2 4-4"/>'),
+    shieldFill: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l7.5 3.2v5.4c0 4.8-3.2 8.9-7.5 10.6-4.3-1.7-7.5-5.8-7.5-10.6V5.7L12 2.5Z" fill="currentColor"/><path d="M8.8 12l2.2 2.2 4.3-4.4" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    tag: sv('<path d="M3 12V4h8l10 10-8 8L3 12Z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
+    rupee: sv('<path d="M7 4h11M7 9h11M7 4c6 0 6 10 0 10h-1l9 7"/>'),
+    star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 6 6.5.7-4.9 4.4 1.4 6.4L12 17l-5.8 3.3 1.4-6.4-4.9-4.4 6.5-.7L12 2.8Z" fill="currentColor"/></svg>',
+    check: sv('<path d="M5 12.5l4.5 4.5L19 7.5"/>', 'stroke-width="3"'),
+    home: sv('<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/>'),
+    cal: sv('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+    family: sv('<circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2.4 1-4 3-4s3 1.6 3 4"/>'),
+    user: sv('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>'),
+    phone: sv('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/>'),
+    nav: sv('<path d="M3 11l18-8-8 18-2-8-8-2Z"/>'),
+    wifiOff: sv('<path d="M2 8.8a15 15 0 0 1 4.2-2.6M10.7 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 5.2-2.8M19 12.9a10 10 0 0 0-2-1.5M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/>'),
+    sync: sv('<path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3M20 4v4h-4M4 20v-4h4"/>'),
+    plus: sv('<path d="M12 5v14M5 12h14"/>'),
+    minus: sv('<path d="M5 12h14"/>'),
+    del: sv('<path d="M21 6H8l-6 6 6 6h13a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1Z"/><path d="M12 10l4 4M16 10l-4 4"/>'),
+    clock: sv('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+    wrench: sv('<path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8M14.7 6.3L13 4.7a4 4 0 0 0-5.3 5.3L3 14.7 6.3 18l4.7-4.7"/>'),
+    drop: sv('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/>'),
+    msg: sv('<path d="M4 5h16v11H8l-4 4V5Z"/>'),
+    bolt: sv('<path d="M13 2L4 14h7l-1 8 9-12h-7l1-8Z"/>'),
+    globe: sv('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3Z"/>'),
+  };
+
+  /* ---------------- illustrations (semi-3D, like Airbnb's category icons) ---------------- */
+  const IL = {
+    home: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gh1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff385c"/><stop offset="1" stop-color="#da1249"/></linearGradient></defs><path d="M10 30L32 12l22 18v24a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V30Z" fill="var(--il-steel)"/><path d="M6 31L32 9l26 22-3 3-23-19L9 34Z" fill="url(#gh1)"/><rect x="26" y="38" width="12" height="18" rx="2" fill="var(--il-wood)"/><rect x="15" y="36" width="8" height="8" rx="1.5" fill="#ffffff"/><rect x="41" y="36" width="8" height="8" rx="1.5" fill="#ffffff"/></svg>`,
+    tap: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="var(--il-steel)"/></linearGradient><linearGradient id="gt2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fc4c7"/><stop offset="1" stop-color="var(--il-water)"/></linearGradient></defs><rect x="6" y="18" width="12" height="16" rx="3" fill="var(--il-steel-dark)"/><path d="M16 22h22a10 10 0 0 1 10 10v4h-10v-2a2 2 0 0 0-2-2H16Z" fill="url(#gt1)" stroke="var(--il-steel-dark)" stroke-width="1.5"/><rect x="25" y="12" width="6" height="10" rx="2" fill="var(--il-steel-dark)"/><rect x="19" y="8" width="18" height="6" rx="3" fill="#ff385c"/><rect x="37" y="36" width="12" height="4" rx="2" fill="var(--il-steel-dark)"/><path d="M43 44c0 0 5 6 5 9a5 5 0 0 1-10 0c0-3 5-9 5-9Z" fill="url(#gt2)"/><ellipse cx="41.5" cy="51" rx="1.5" ry="2.5" fill="#ffffff" opacity=".7"/></svg>`,
+    bulb: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="gb1" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#ffd166"/><stop offset="1" stop-color="var(--il-glow)"/></radialGradient></defs><circle cx="32" cy="26" r="17" fill="url(#gb1)"/><path d="M25 40h14v6H25z" fill="var(--il-glow)"/><rect x="24" y="45" width="16" height="10" rx="3" fill="var(--il-steel)"/><path d="M24 49h16M24 52h16" stroke="var(--il-steel-dark)" stroke-width="1.5"/><path d="M28 26l4 6 4-6" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+    ac: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ga1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="var(--il-steel)"/></linearGradient></defs><rect x="6" y="14" width="52" height="22" rx="6" fill="url(#ga1)" stroke="var(--il-steel-dark)" stroke-width="1.5"/><rect x="12" y="28" width="40" height="3" rx="1.5" fill="var(--il-steel-dark)"/><circle cx="50" cy="20" r="2" fill="#038026"/><path d="M18 42c0 4-3 4-3 8M32 42c0 4-3 4-3 8M46 42c0 4-3 4-3 8" stroke="var(--il-water)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
+    hammer: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gm1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="var(--il-steel-dark)"/></linearGradient></defs><rect x="29" y="22" width="8" height="38" rx="3" transform="rotate(-35 33 41)" fill="var(--il-wood)"/><path d="M14 18l14-10 6 4 14 2-4 8-12-2-6 8Z" fill="url(#gm1)" stroke="var(--il-steel-dark)" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+    spray: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gs1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5fc4c7"/><stop offset="1" stop-color="var(--il-water)"/></linearGradient></defs><path d="M22 26h18l4 30a2 2 0 0 1-2 2H20a2 2 0 0 1-2-2Z" fill="url(#gs1)"/><rect x="24" y="18" width="14" height="9" rx="2" fill="var(--il-steel)"/><path d="M26 18V12h16l4 4h-8v2" fill="#ff385c"/><rect x="23" y="36" width="16" height="10" rx="2" fill="#ffffff" opacity=".85"/><circle cx="52" cy="12" r="2" fill="var(--il-water)"/><circle cx="54" cy="18" r="1.5" fill="var(--il-water)"/><circle cx="50" cy="20" r="1.5" fill="var(--il-water)"/></svg>`,
+    phoneJob: `<svg class="il" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff385c"/><stop offset="1" stop-color="#da1249"/></linearGradient></defs><rect x="16" y="6" width="32" height="52" rx="6" fill="var(--il-hair)"/><rect x="19" y="11" width="26" height="40" rx="3" fill="#ffffff"/><rect x="22" y="16" width="20" height="10" rx="2" fill="url(#gp1)"/><rect x="22" y="30" width="14" height="3" rx="1.5" fill="var(--il-steel)"/><rect x="22" y="36" width="20" height="9" rx="2" fill="#038026"/><path d="M29 40.5l2 2 4-4" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>`,
+  };
+
+  const face = (shirt = 'var(--info)', hair = 'var(--il-hair)', mustache = true) => `<svg class="face" viewBox="0 0 96 96" aria-hidden="true"><rect width="96" height="96" fill="var(--surface-2)"/><path d="M14 96c2-18 16-26 34-26s32 8 34 26Z" fill="${shirt}"/><path d="M40 62h16v12a8 8 0 0 1-16 0Z" fill="var(--il-skin)"/><ellipse cx="48" cy="44" rx="18" ry="21" fill="var(--il-skin)"/><path d="M29 42c-1-14 8-22 19-22s21 7 19 22c-2-6-6-10-10-11-6 3-17 4-28 11Z" fill="${hair}"/>${mustache ? '<path d="M40 54c3-2 5-2 8 0 3-2 5-2 8 0-3 3-13 3-16 0Z" fill="' + hair + '"/>' : ''}<circle cx="41" cy="45" r="2" fill="var(--il-hair)"/><circle cx="55" cy="45" r="2" fill="var(--il-hair)"/></svg>`;
+
+  /* ---------------- copy ---------------- */
+  const T = {
+    kn: {
+      hello: 'ನಮಸ್ಕಾರ, ಶಾಂತಮ್ಮ',
+      whatFix: 'ಏನು ರಿಪೇರಿ ಆಗಬೇಕು?',
+      tapMic: 'ಮೈಕ್ ಒತ್ತಿ, ಮಾತನಾಡಿ',
+      all: 'ಎಲ್ಲಾ', plumber: 'ಪ್ಲಂಬರ್', electrician: 'ಎಲೆಕ್ಟ್ರಿಷಿಯನ್', ac: 'ಎಸಿ ಸರ್ವಿಸ್', carpenter: 'ಬಡಗಿ', cleaning: 'ಸ್ವಚ್ಛತೆ',
+      home: 'ಮನೆ', addr: 'ಕುವೆಂಪುನಗರ, ಮೈಸೂರು',
+      trust1: 'ಪರಿಶೀಲಿತ ಕೆಲಸಗಾರರು', trust1s: 'ಪೊಲೀಸ್ ಮತ್ತು ಆಧಾರ್ ಪರಿಶೀಲನೆ ಆಗಿದೆ',
+      trust2: 'ಬರುವ ಮೊದಲೇ ಬೆಲೆ', trust2s: 'ನಿಗದಿತ ಭೇಟಿ ಶುಲ್ಕ, ಚೌಕಾಸಿ ಇಲ್ಲ',
+      trust3: 'ಕೆಲಸದ ನಂತರ ಪಾವತಿ', trust3s: 'ಕೆಲಸ ಮುಗಿದ ಮೇಲೆ UPI ಮೂಲಕ',
+      bookAgain: 'ಮತ್ತೆ ಬುಕ್ ಮಾಡಿ',
+      fan: 'ಫ್ಯಾನ್ ರಿಪೇರಿ', fanBy: 'ಸುರೇಶ್ ಬಿ. · ಸೆಪ್ಟೆಂಬರ್', deep: 'ಮನೆ ಸ್ವಚ್ಛತೆ', deepBy: 'ಕಾವ್ಯ ಎಂ. · ಆಗಸ್ಟ್',
+      verified: 'ಪರಿಶೀಲಿತ',
+      famT: 'ಕಾರ್ತಿಕ್ ನಿಮ್ಮ ಬುಕಿಂಗ್ ನೋಡಬಹುದು', famS: 'ಮಗ · ಬೆಂಗಳೂರು · ಅವರೂ ಪಾವತಿಸಬಹುದು',
+      tabHome: 'ಮುಖಪುಟ', tabBook: 'ಬುಕಿಂಗ್', tabFam: 'ಕುಟುಂಬ', tabMe: 'ನಾನು',
+      upcoming: 'ನಾಳೆ ಬೆಳಿಗ್ಗೆ 11 ಕ್ಕೆ ಮಂಜುನಾಥ್ ಬರುತ್ತಾರೆ', upcomingS: 'ನಲ್ಲಿ ಸೋರಿಕೆ ರಿಪೇರಿ · ಕೋಡ್ 4821',
+      listening: 'ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ…', understanding: 'ಅರ್ಥಮಾಡಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ', idle: 'ಮೈಕ್ ಒತ್ತಿ ಮಾತನಾಡಿ',
+      sayIt: 'ಸಮಸ್ಯೆಯನ್ನು ನಿಮ್ಮ ಮಾತಿನಲ್ಲೇ ಹೇಳಿ',
+      said: ['ಅಡುಗೆಮನೆಯ', 'ನಲ್ಲಿ', 'ಸೋರುತ್ತಿದೆ,', 'ನೀರು', 'ನಿಲ್ಲುತ್ತಿಲ್ಲ'],
+      tryS: 'ಹೀಗೆ ಹೇಳಬಹುದು', try1: 'ಫ್ಯಾನ್ ತಿರುಗುತ್ತಿಲ್ಲ', try2: 'ಎಸಿ ತಣ್ಣಗಾಗುತ್ತಿಲ್ಲ',
+      typeInstead: 'ಬದಲಿಗೆ ಟೈಪ್ ಮಾಡಿ', slowNet: 'ಸಿಗ್ನಲ್ ಕಡಿಮೆ ಇದ್ದರೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ',
+      svc: 'ನಲ್ಲಿ ಸೋರಿಕೆ ರಿಪೇರಿ', svcSub: 'ಪ್ಲಂಬರ್ · ಸುಮಾರು 45 ನಿಮಿಷ',
+      weHeard: 'ನೀವು ಹೇಳಿದ್ದು', heard: 'ಅಡುಗೆಮನೆಯ ನಲ್ಲಿ ಸೋರುತ್ತಿದೆ, ನೀರು ನಿಲ್ಲುತ್ತಿಲ್ಲ', sayAgain: 'ಮತ್ತೆ ಹೇಳಿ',
+      fixedVisit: 'ನಿಗದಿತ ಭೇಟಿ ಶುಲ್ಕ', fixed: 'ಬೆಲೆ ಬದಲಾಗುವುದಿಲ್ಲ', visit: 'ಭೇಟಿ',
+      priceNote: 'ಬಿಡಿಭಾಗ ಬೇಕಾದರೆ ಹೆಚ್ಚುವರಿ, ಸಾಮಾನ್ಯವಾಗಿ ₹150–₹350. ನೀವು ಪಾವತಿಸುವ ಮೊದಲು ಬಿಲ್ ಆ್ಯಪ್‌ನಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.',
+      incl: 'ಇದರಲ್ಲಿ ಏನಿದೆ',
+      inc1: 'ಅಡುಗೆಮನೆಯ ನಲ್ಲಿ ಮತ್ತು ಪೈಪ್ ಪರಿಶೀಲನೆ', inc1s: 'ಸೋರಿಕೆ ಎಲ್ಲಿದೆ ಎಂದು ಮೊದಲು ತೋರಿಸುತ್ತಾರೆ',
+      inc2: 'ವಾಷರ್ ಅಥವಾ ಕಾರ್ಟ್ರಿಡ್ಜ್ ಬದಲಾವಣೆ', inc2s: 'ಬಿಡಿಭಾಗದ ಬೆಲೆ ಮೊದಲೇ ತಿಳಿಸುತ್ತಾರೆ',
+      inc3: '30 ದಿನಗಳ ರಿಪೇರಿ ಗ್ಯಾರಂಟಿ', inc3s: 'ಮತ್ತೆ ಸೋರಿದರೆ ಉಚಿತವಾಗಿ ಸರಿಪಡಿಸುತ್ತೇವೆ',
+      payLater: 'ಕೆಲಸದ ನಂತರ ಪಾವತಿ', confirm: 'ಖಚಿತಪಡಿಸಿ',
+      when: 'ಯಾವಾಗ ಬರಬೇಕು?', whenSub: 'ಮೈಸೂರಿನಲ್ಲಿ 14 ಪ್ಲಂಬರ್‌ಗಳು ಲಭ್ಯ',
+      today: 'ಇಂದು', tomorrow: 'ನಾಳೆ', wd: ['ಭಾನು', 'ಸೋಮ', 'ಮಂಗಳ', 'ಬುಧ', 'ಗುರು', 'ಶುಕ್ರ', 'ಶನಿ'],
+      morning: 'ಬೆಳಿಗ್ಗೆ', afternoon: 'ಮಧ್ಯಾಹ್ನ', evening: 'ಸಂಜೆ',
+      free: (n) => `${n} ಜನ ಲಭ್ಯ`, few: 'ಕೊನೆಯ ಸ್ಥಳ', full: 'ಭರ್ತಿ',
+      share: 'ಕಾರ್ತಿಕ್‌ಗೂ ಮಾಹಿತಿ ಕಳುಹಿಸಿ', shareS: 'ಅವರಿಗೆ WhatsApp‌ನಲ್ಲಿ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಹೋಗುತ್ತದೆ',
+      book: 'ಬುಕ್ ಮಾಡಿ', finding: 'ಹುಡುಕುತ್ತಿದ್ದೇವೆ',
+      booked: 'ಬುಕ್ ಆಗಿದೆ!', bookedS: (d, s) => `${d}, ${s}. ಬರುವ ಮುನ್ನ ಕರೆ ಮಾಡುತ್ತಾರೆ.`,
+      whoComing: 'ಯಾರು ಬರುತ್ತಿದ್ದಾರೆ', pName: 'ಮಂಜುನಾಥ್ ಕೆ.', pRole: 'ಪೊಲೀಸ್ ಪರಿಶೀಲಿತ',
+      rating: 'ರೇಟಿಂಗ್', jobs: 'ಕೆಲಸಗಳು', years: 'ವರ್ಷ ಅನುಭವ',
+      speaks: 'ಕನ್ನಡ, ಹಿಂದಿ ಮಾತನಾಡುತ್ತಾರೆ', speaksS: 'ಹುಣಸೂರು ರಸ್ತೆಯಿಂದ, ನಿಮ್ಮ ಮನೆಯಿಂದ 3 ಕಿ.ಮೀ.',
+      codeT: 'ಬಾಗಿಲಲ್ಲಿ ಈ ಕೋಡ್ ಹೇಳಿ', codeS: 'ಮಂಜುನಾಥ್ ಬಾಗಿಲಿಗೆ ಬಂದಾಗ ಮಾತ್ರ ಹೇಳಿ. ಆಗ ಬಂದವರು ಅವರೇ ಎಂದು ಖಚಿತ.',
+      status: 'ಮುಂದೆ ಏನಾಗುತ್ತದೆ',
+      st1: 'ಬುಕ್ ಆಗಿದೆ', st1s: 'ನೀವು ಮತ್ತು ಕಾರ್ತಿಕ್ ಇಬ್ಬರಿಗೂ ಸಂದೇಶ ಹೋಗಿದೆ',
+      st2: 'ಮಂಜುನಾಥ್ ಹೊರಟಿದ್ದಾರೆ', st2s: 'ಬರುವ ಸಮಯ ಇಲ್ಲಿ ಕಾಣುತ್ತದೆ',
+      st3: 'ಕೆಲಸ ಮುಗಿದ ಮೇಲೆ ಪಾವತಿ', st3s: '₹199 + ಬಿಡಿಭಾಗ, UPI ಮೂಲಕ',
+      call: 'ಕರೆ ಮಾಡಿ', done: 'ಸರಿ',
+    },
+    en: {
+      hello: 'Namaskara, Shantamma',
+      whatFix: 'What needs fixing?',
+      tapMic: 'Tap the mic and say it',
+      all: 'All', plumber: 'Plumber', electrician: 'Electrician', ac: 'AC service', carpenter: 'Carpenter', cleaning: 'Cleaning',
+      home: 'Home', addr: 'Kuvempunagar, Mysuru',
+      trust1: 'Verified partners', trust1s: 'Police and Aadhaar checked',
+      trust2: 'Price before anyone comes', trust2s: 'Fixed visit charge, no haggling',
+      trust3: 'Pay after the work', trust3s: 'By UPI, once the job is done',
+      bookAgain: 'Book again',
+      fan: 'Fan repair', fanBy: 'Suresh B. · September', deep: 'Home cleaning', deepBy: 'Kavya M. · August',
+      verified: 'Verified',
+      famT: 'Karthik can see your bookings', famS: 'Son · Bengaluru · can pay for you',
+      tabHome: 'Home', tabBook: 'Bookings', tabFam: 'Family', tabMe: 'Profile',
+      upcoming: 'Manjunath comes tomorrow at 11 AM', upcomingS: 'Tap leak repair · code 4821',
+      listening: 'Listening…', understanding: 'Understanding', idle: 'Tap the mic to speak',
+      sayIt: 'Describe the problem in your own words',
+      said: ['The', 'kitchen', 'tap', 'is', 'leaking,', 'water', "won't", 'stop'],
+      tryS: 'You can say', try1: 'The fan is not spinning', try2: 'AC is not cooling',
+      typeInstead: 'Type instead', slowNet: 'Works on a weak signal too',
+      svc: 'Tap leak repair', svcSub: 'Plumber · about 45 minutes',
+      weHeard: 'You said', heard: "The kitchen tap is leaking, water won't stop", sayAgain: 'Say it again',
+      fixedVisit: 'Fixed visit charge', fixed: 'Price will not change', visit: 'visit',
+      priceNote: 'Parts are extra if needed, usually ₹150–₹350. You see the bill in the app before you pay.',
+      incl: "What's included",
+      inc1: 'Check of kitchen taps and pipes', inc1s: 'They show you where the leak is first',
+      inc2: 'Washer or cartridge change', inc2s: 'Part price shared before fitting',
+      inc3: '30-day repair guarantee', inc3s: 'If it leaks again, we fix it free',
+      payLater: 'Pay after the work', confirm: 'Confirm',
+      when: 'When should they come?', whenSub: '14 plumbers available in Mysuru',
+      today: 'Today', tomorrow: 'Tomorrow', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening',
+      free: (n) => `${n} available`, few: 'Last slot', full: 'Full',
+      share: 'Send updates to Karthik too', shareS: 'He gets them on WhatsApp, in English',
+      book: 'Book', finding: 'Finding',
+      booked: 'Booked!', bookedS: (d, s) => `${d}, ${s}. He calls before he leaves.`,
+      whoComing: "Who's coming", pName: 'Manjunath K.', pRole: 'Police verified',
+      rating: 'Rating', jobs: 'Jobs', years: 'Years',
+      speaks: 'Speaks Kannada and Hindi', speaksS: 'Based on Hunsur Road, 3 km from you',
+      codeT: 'Say this code at the door', codeS: "Share it only when Manjunath is at your door. That's how you know it's him.",
+      status: 'What happens next',
+      st1: 'Booked', st1s: 'You and Karthik both got a message',
+      st2: 'Manjunath sets off', st2s: 'His arrival time shows here',
+      st3: 'Pay after the work', st3s: '₹199 + parts, by UPI',
+      call: 'Call', done: 'Done',
+    },
+  };
+  const P = {
+    kn: {
+      online: 'ಆನ್‌ಲೈನ್', todayAmt: 'ಇಂದು', weak: 'ಸಿಗ್ನಲ್ ಕಡಿಮೆ', good: 'ಸಿಗ್ನಲ್ ಸರಿ ಇದೆ',
+      newJob: 'ಹೊಸ ಕೆಲಸ', youEarn: 'ನಿಮ್ಮ ಗಳಿಕೆ', parts: '+ ಬಿಡಿಭಾಗ',
+      job: 'ಸೀಲಿಂಗ್ ಫ್ಯಾನ್ ತಿರುಗುತ್ತಿಲ್ಲ', km: 'ಕಿ.ಮೀ. ದೂರ', min: 'ನಿಮಿಷ', now: 'ಈಗ', start: 'ಆರಂಭ',
+      area: 'ವಿದ್ಯಾನಗರ, ಹುಬ್ಬಳ್ಳಿ',
+      accept: 'ಒಪ್ಪಿಕೊಳ್ಳಿ', skip: 'ಬೇಡ, ಮುಂದಿನದು',
+      yours: 'ಕೆಲಸ ನಿಮ್ಮದು', yoursS: 'ಗೀತಾ ಆರ್. ಅವರ ಮನೆ · ಫ್ಯಾನ್ ರಿಪೇರಿ',
+      queued: 'ಸಿಗ್ನಲ್ ಕಡಿಮೆ ಇದೆ', queuedS: 'ಫೋನ್‌ನಲ್ಲಿ ಉಳಿಸಿದ್ದೇವೆ. ಸಿಗ್ನಲ್ ಬಂದ ತಕ್ಷಣ ಕಳುಹಿಸುತ್ತೇವೆ.',
+      sent: 'ಗ್ರಾಹಕರಿಗೆ ತಿಳಿಸಲಾಗಿದೆ', sentS: 'ನೀವು ಬರುತ್ತಿದ್ದೀರಿ ಎಂದು ಗೀತಾ ಅವರಿಗೆ ಗೊತ್ತು.',
+      showWay: 'ದಾರಿ ತೋರಿಸಿ',
+      addr1: '#14, 2ನೇ ಕ್ರಾಸ್, ವಿದ್ಯಾನಗರ', landmark: 'ಗಣೇಶ ದೇವಸ್ಥಾನದ ಎದುರು · 1ನೇ ಮಹಡಿ',
+      maps: 'ಮ್ಯಾಪ್', callC: 'ಕರೆ', arrived: 'ನಾನು ತಲುಪಿದ್ದೇನೆ',
+      askCode: 'ಗ್ರಾಹಕರ ಕೋಡ್ ಕೇಳಿ', askCodeS: 'ಗೀತಾ ಅವರ ಫೋನ್‌ನಲ್ಲಿರುವ 4 ಅಂಕಿಯ ಕೋಡ್ ನಮೂದಿಸಿ', demo: 'ಡೆಮೊ ಕೋಡ್: 7305', wrong: 'ಕೋಡ್ ಹೊಂದುತ್ತಿಲ್ಲ. ಮತ್ತೆ ಕೇಳಿ.',
+      bill: 'ಬಿಲ್', billS: 'ಗೀತಾ ಅವರು ಪಾವತಿಸುವ ಮೊದಲು ಇದನ್ನು ನೋಡುತ್ತಾರೆ',
+      visit: 'ಭೇಟಿ ಶುಲ್ಕ', visitS: 'ನಿಗದಿತ', labour: 'ಫ್ಯಾನ್ ರಿಪೇರಿ ಕೂಲಿ', labourS: 'ಸೇವಾ ದರ ಪಟ್ಟಿ',
+      addPart: 'ಬಿಡಿಭಾಗ ಸೇರಿಸಿ', total: 'ಒಟ್ಟು', send: 'ಬಿಲ್ ಕಳುಹಿಸಿ',
+      pickPart: 'ಯಾವ ಬಿಡಿಭಾಗ?', doneParts: 'ಮುಗಿಯಿತು',
+      cap: 'ಕೆಪಾಸಿಟರ್ 2.5µF', reg: 'ಫ್ಯಾನ್ ರೆಗ್ಯುಲೇಟರ್', sw: 'ಸ್ವಿಚ್', wire: 'ವೈರ್ (1 ಮೀ.)',
+      waiting: 'ಗೀತಾ ಅವರ ಒಪ್ಪಿಗೆಗಾಗಿ ಕಾಯುತ್ತಿದ್ದೇವೆ', waitingS: 'ಅವರು ಬಿಲ್ ನೋಡಿ UPI ಮೂಲಕ ಪಾವತಿಸುತ್ತಾರೆ',
+      paid: 'ಇಂದೇ ಪಾವತಿ', paidS: 'ಸಂಜೆ 6 ರೊಳಗೆ ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ',
+      breakdown: 'ಲೆಕ್ಕ', work: 'ಭೇಟಿ + ಕೂಲಿ', fee: 'ಸೇವಾ ಶುಲ್ಕ (10%)', partsBack: 'ಬಿಡಿಭಾಗ (ಪೂರ್ತಿ ವಾಪಸ್)',
+      todayJobs: 'ಇಂದಿನ ಕೆಲಸ', todayEarn: 'ಇಂದಿನ ಗಳಿಕೆ', next: 'ಮುಂದಿನ ಕೆಲಸ ನೋಡಿ', rating: 'ಈ ಕೆಲಸದ ರೇಟಿಂಗ್',
+      how: '₹199 ಭೇಟಿ + ₹250 ಕೂಲಿ − 10% ಸೇವಾ ಶುಲ್ಕ', billNote: 'ಬಿಡಿಭಾಗದ ಹಣ ಪೂರ್ತಿ ನಿಮಗೆ ವಾಪಸ್ ಬರುತ್ತದೆ',
+    },
+    en: {
+      online: 'Online', todayAmt: 'Today', weak: 'Weak signal', good: 'Good signal',
+      newJob: 'New job', youEarn: 'You earn', parts: '+ parts',
+      job: 'Ceiling fan not spinning', km: 'km away', min: 'min', now: 'Now', start: 'start',
+      area: 'Vidyanagar, Hubballi',
+      accept: 'Accept', skip: 'Skip, show next',
+      yours: 'The job is yours', yoursS: "Geetha R.'s home · fan repair",
+      queued: 'Weak signal', queuedS: "Saved on your phone. We'll send it the moment signal returns.",
+      sent: 'Customer has been told', sentS: "Geetha knows you're on the way.",
+      showWay: 'Show the way',
+      addr1: '#14, 2nd Cross, Vidyanagar', landmark: 'Opposite Ganesha temple · 1st floor',
+      maps: 'Maps', callC: 'Call', arrived: "I've arrived",
+      askCode: "Ask for the customer's code", askCodeS: "Enter the 4-digit code on Geetha's phone", demo: 'Demo code: 7305', wrong: "Code doesn't match. Ask again.",
+      bill: 'Bill', billS: 'Geetha sees this before she pays',
+      visit: 'Visit charge', visitS: 'Fixed', labour: 'Fan repair labour', labourS: 'Seva rate card',
+      addPart: 'Add a part', total: 'Total', send: 'Send bill',
+      pickPart: 'Which part?', doneParts: 'Done',
+      cap: 'Capacitor 2.5µF', reg: 'Fan regulator', sw: 'Switch', wire: 'Wire (1 m)',
+      waiting: 'Waiting for Geetha to approve', waitingS: 'She checks the bill and pays by UPI',
+      paid: 'Paid today', paidS: 'Reaches your bank account by 6 PM',
+      breakdown: 'Breakdown', work: 'Visit + labour', fee: 'Seva fee (10%)', partsBack: 'Parts (paid back in full)',
+      todayJobs: 'Jobs today', todayEarn: 'Earned today', next: 'See next job', rating: 'Job rating',
+      how: '₹199 visit + ₹250 labour − 10% Seva fee', billNote: 'You get the full part price back',
+    },
+  };
+
+  const JOURNEYS = {
+    c: {
+      tab: 'Book by voice', icon: IL.tap,
+      title: 'Book a plumber by voice, in Kannada',
+      desc: "Shantamma, 64, retired teacher in Mysuru. She prefers speaking to typing and has been overcharged before. Her son Karthik follows her bookings from Bengaluru.",
+      who: 'Shantamma, 64', whoS: 'Customer · Mysuru · Kannada',
+      steps: ['Open the app in Kannada and tap the mic', 'Describe the problem out loud', 'Confirm the service and fixed visit price', 'Pick a time slot', "See who's coming, with photo, rating and code"],
+    },
+    p: {
+      tab: 'Partner job', icon: IL.phoneJob,
+      title: 'Partner accepts and completes a job',
+      desc: 'Ravi, 31, electrician in Hubballi. A ₹9,000 phone with a cracked screen, rooftops and basements, weak signal. Every control here is sized for a gloved thumb in sunlight.',
+      who: 'Ravi, 31', whoS: 'Partner · Hubballi · 2 years on Seva',
+      steps: ['A job alert arrives with distance and payout', 'Accept with one tap, even on a weak signal', 'Navigate, then confirm arrival with a code', 'Add the replaced part to the bill', 'Customer approves. Payout shows "Paid today"'],
+    },
+  };
+
+  const PARTS = [
+    { id: 'cap', price: 180 }, { id: 'reg', price: 220 }, { id: 'sw', price: 60 }, { id: 'wire', price: 25 },
+  ];
+  const VISIT = 199, LABOUR = 250, CODE = '7305';
+
+  /* ---------------- state ---------------- */
+  const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const S = {
+    j: 'c', step: 0, lang: store.get('seva-lang') || 'kn',
+    voice: 'listening', voiceWords: 0,
+    day: 1, slot: '11-1', share: true, booking: false, booked: false,
+    timer: 30, acceptState: 'idle', net: 'weak',
+    otp: '', otpOpen: false, otpBad: false,
+    parts: {}, partsOpen: false, billState: 'draft',
+  };
+  const timers = new Set();
+  const later = (fn, ms) => { const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); return id; };
+  const every = (fn, ms) => { const id = setInterval(fn, ms); timers.add(id); return id; };
+  const clearAll = () => { timers.forEach((id) => { clearTimeout(id); clearInterval(id); }); timers.clear(); };
+
+  const t = (k) => (T[S.lang][k] ?? T.en[k]);
+  const p = (k) => (P[S.lang][k] ?? P.en[k]);
+  const rs = (n) => '₹' + n.toLocaleString('en-IN');
+
+  const screenEl = document.getElementById('screen');
+
+  /* ---------------- shared chrome ---------------- */
+  const osbar = (bars = 4) => `<div class="osbar"><span class="num">10:24</span><span class="bars" aria-label="Signal ${bars} of 4">${[4, 7, 10, 12].map((h, i) => `<i style="height:${h}px" class="${i < bars ? '' : 'off'}"></i>`).join('')}</span></div>`;
+  const topnav = (backTo, right = '') => `<div class="topnav"><button class="circle-btn" data-go="${backTo}" aria-label="Back">${I.back}</button>${right}</div>`;
+
+  /* ---------------- customer screens ---------------- */
+  const days = () => {
+    const base = new Date(2026, 9, 5);
+    return Array.from({ length: 6 }, (_, i) => {
+      const d = new Date(base); d.setDate(base.getDate() + i);
+      return { i, n: d.getDate(), label: i === 0 ? t('today') : i === 1 ? t('tomorrow') : t('wd')[d.getDay()] };
+    });
+  };
+  const SLOTS = [
+    { g: 'morning', items: [{ id: '9-11', en: '9 – 11 AM', kn: '9 – 11', free: 0 }, { id: '11-1', en: '11 AM – 1 PM', kn: '11 – 1', free: 4 }] },
+    { g: 'afternoon', items: [{ id: '2-4', en: '2 – 4 PM', kn: '2 – 4', free: 1 }, { id: '4-6', en: '4 – 6 PM', kn: '4 – 6', free: 6 }] },
+    { g: 'evening', items: [{ id: '6-8', en: '6 – 8 PM', kn: '6 – 8', free: 3 }] },
+  ];
+  const slotLabel = () => {
+    for (const g of SLOTS) for (const s of g.items) if (s.id === S.slot) return S.lang === 'kn' ? `${t(g.g)} ${s.kn}` : s.en;
+    return '';
+  };
+  const dayLabel = () => days()[S.day].label;
+
+  const C = [
+    // 0 — home
+    () => `
+      <div class="scr">
+        ${osbar(3)}
+        <div class="scroll">
+          <h1 class="greet">${t('hello')}</h1>
+          <button class="search-pill" data-go="1" aria-label="${t('whatFix')}. ${t('tapMic')}">
+            <span class="sp-text"><b>${t('whatFix')}</b><span>${t('tapMic')}</span></span>
+            <span class="mic-btn">${I.mic}</span>
+          </button>
+          ${S.booked ? `<button class="upcoming" data-go="4"><span class="ava" style="width:56px;height:56px">${face()}<span class="vbadge">${I.shieldFill}</span></span><span><b><span class="live-dot"></span>${t('upcoming')}</b><span>${t('upcomingS')}</span></span></button>` : ''}
+          <div class="addr">${I.pin}<span><b>${t('home')}</b> · ${t('addr')}</span></div>
+          <div class="cats" role="tablist" aria-label="Services">
+            ${[['all', IL.home], ['plumber', IL.tap], ['electrician', IL.bulb], ['ac', IL.ac], ['carpenter', IL.hammer], ['cleaning', IL.spray]].map(([k, il], i) => `<button class="cat" role="tab" aria-selected="${i === 0}" data-go="${k === 'plumber' ? 1 : ''}">${il}<span>${t(k)}</span></button>`).join('')}
+          </div>
+          <div class="pad">
+            <section class="sec">
+              <div class="trust">
+                <div class="row">${I.shield}<div><b>${t('trust1')}</b><span>${t('trust1s')}</span></div></div>
+                <div class="row">${I.tag}<div><b>${t('trust2')}</b><span>${t('trust2s')}</span></div></div>
+                <div class="row">${I.rupee}<div><b>${t('trust3')}</b><span>${t('trust3s')}</span></div></div>
+              </div>
+            </section>
+            <section class="sec">
+              <h2 class="sec-h">${t('bookAgain')} <span class="arrow">${I.arrow}</span></h2>
+              <div class="card-grid">
+                <button class="tile"><span class="tile-img">${IL.bulb}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></span><span class="meta"><b>${t('fan')}</b><span>${t('fanBy')}</span><span class="num">₹199 ${t('visit')} · ★ 4.88</span></span></button>
+                <button class="tile"><span class="tile-img">${IL.spray}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></span><span class="meta"><b>${t('deep')}</b><span>${t('deepBy')}</span><span class="num">₹1,499 · ★ 4.95</span></span></button>
+              </div>
+            </section>
+            <section class="sec">
+              <div class="fam"><span class="initial">K</span><div><b>${t('famT')}</b><span>${t('famS')}</span></div>${I.chev}</div>
+            </section>
+          </div>
+        </div>
+        <nav class="tabbar" aria-label="App tabs">
+          <span class="on">${I.home}${t('tabHome')}</span><span>${I.cal}${t('tabBook')}</span><span>${I.family}${t('tabFam')}</span><span>${I.user}${t('tabMe')}</span>
+        </nav>
+      </div>`,
+
+    // 1 — voice
+    () => {
+      const words = t('said');
+      const shown = words.slice(0, S.voiceWords);
+      const st = S.voice;
+      return `
+      <div class="scr c-voice ${st}">
+        ${osbar(2)}
+        <div class="v-head"><button class="circle-btn" data-go="0" aria-label="Close">${I.close}</button><span class="lang-chip">${I.globe}${S.lang === 'kn' ? 'ಕನ್ನಡ' : 'English'}</span></div>
+        <div class="v-body">
+          <p class="v-status" aria-live="polite">${st === 'understanding' ? `${t('understanding')} <span class="dots"><i></i><i></i><i></i></span>` : st === 'idle' ? t('idle') : t('listening')}</p>
+          <p class="v-transcript" id="vt">${shown.length ? shown.map((w) => `<span class="w">${w}</span>`).join(' ') : `<span class="ghost">${t('sayIt')}</span>`}</p>
+          <div class="wave" aria-hidden="true">${Array.from({ length: 16 }, () => '<i></i>').join('')}</div>
+          <button class="mic-xl" id="mic" aria-label="${st === 'listening' ? 'Stop' : 'Speak'}"><span class="ripple"></span><span class="ripple"></span><span class="ripple"></span>${I.mic}</button>
+          <div class="v-try"><p>${t('tryS')}</p><div class="chips"><span class="chip">${t('try1')}</span><span class="chip">${t('try2')}</span></div></div>
+        </div>
+        <div class="v-foot"><button class="link">${t('typeInstead')}</button><span class="v-net">${I.wifiOff}${t('slowNet')}</span></div>
+      </div>`;
+    },
+
+    // 2 — service + fixed price
+    () => `
+      <div class="scr">
+        ${osbar(3)}
+        ${topnav(0)}
+        <div class="scroll">
+          <div class="hero-img">${IL.tap}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></div>
+          <div class="pad">
+            <div class="svc-title"><h1>${t('svc')}</h1><p>${t('svcSub')}</p></div>
+            <section class="sec">
+              <div class="heard"><span class="hq">${I.mic}</span><div><small>${t('weHeard')}</small><q>${t('heard')}</q><button class="link" data-go="1">${t('sayAgain')}</button></div></div>
+            </section>
+            <section class="sec">
+              <h2 class="sec-h">${t('fixedVisit')}</h2>
+              <div class="price-big"><b class="num">₹199</b><span class="fixed-tag">${I.shield}${t('fixed')}</span></div>
+              <p class="price-note">${t('priceNote')}</p>
+            </section>
+            <section class="sec">
+              <h2 class="sec-h" style="padding-bottom:20px">${t('incl')}</h2>
+              <div class="rows">
+                <div class="row">${I.drop}<div><b>${t('inc1')}</b><span>${t('inc1s')}</span></div></div>
+                <div class="row">${I.wrench}<div><b>${t('inc2')}</b><span>${t('inc2s')}</span></div></div>
+                <div class="row">${I.shield}<div><b>${t('inc3')}</b><span>${t('inc3s')}</span></div></div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="footbar"><div class="fb-price"><b class="num">₹199 <span style="text-decoration:none;font-weight:400">${t('visit')}</span></b><span>${t('payLater')}</span></div><button class="brand-btn" data-go="3">${t('confirm')}</button></div>
+      </div>`,
+
+    // 3 — time slot
+    () => `
+      <div class="scr">
+        ${osbar(3)}
+        ${topnav(2)}
+        <div class="scroll">
+          <h1 class="page-h">${t('when')}</h1>
+          <p class="page-sub">${t('whenSub')}</p>
+          <div class="days" role="group" aria-label="Day">
+            ${days().map((d) => `<button class="day" data-day="${d.i}" aria-pressed="${S.day === d.i}"><small>${d.label}</small><b class="num">${d.n}</b></button>`).join('')}
+          </div>
+          <div class="pad">
+            <section class="sec" style="display:flex;flex-direction:column;gap:20px">
+              ${SLOTS.map((g) => `<div class="slot-group"><p>${t(g.g)}</p><div class="slots">${g.items.map((s) => {
+                const free = S.day === 0 && s.id !== '6-8' ? 0 : s.free;
+                return `<button class="slot" data-slot="${s.id}" aria-pressed="${S.slot === s.id && free > 0}" ${free === 0 ? 'disabled' : ''}><b class="num">${S.lang === 'kn' ? s.kn : s.en}</b><span class="${free === 1 ? 'few' : ''}">${free === 0 ? t('full') : free === 1 ? t('few') : t('free')(free)}</span></button>`;
+              }).join('')}</div></div>`).join('')}
+            </section>
+            <section class="sec">
+              <button class="switch-row" id="share" role="switch" aria-checked="${S.share}"><span><b>${t('share')}</b><span>${t('shareS')}</span></span><span class="switch"></span></button>
+            </section>
+          </div>
+        </div>
+        <div class="footbar"><div class="fb-price"><b>${dayLabel()}</b><span>${slotLabel()}</span></div><button class="brand-btn" id="book" ${S.booking ? 'aria-busy="true"' : ''}>${S.booking ? `<span class="spinner"></span>${t('finding')}` : t('book')}</button></div>
+      </div>`,
+
+    // 4 — booked, who's coming
+    () => `
+      <div class="scr">
+        ${osbar(3)}
+        <div class="scroll">
+          <div class="ok-head"><span class="ok-check">${I.check}</span><h1>${t('booked')}</h1><p>${t('bookedS')(dayLabel(), slotLabel())}</p></div>
+          <div class="pad">
+            <section class="sec">
+              <h2 class="sec-h" style="padding-bottom:16px">${t('whoComing')}</h2>
+              <div class="host-card">
+                <div class="host-id"><span class="ava">${face()}<span class="vbadge">${I.shieldFill}</span></span><b>${t('pName')}</b><span>${I.shieldFill}${t('pRole')}</span></div>
+                <div class="host-stats">
+                  <div><b class="num">4.92${I.star}</b><span>${t('rating')}</span></div>
+                  <div><b class="num">312</b><span>${t('jobs')}</span></div>
+                  <div><b class="num">6</b><span>${t('years')}</span></div>
+                </div>
+              </div>
+              <div class="rows" style="padding-top:24px">
+                <div class="row">${I.msg}<div><b>${t('speaks')}</b><span>${t('speaksS')}</span></div></div>
+              </div>
+            </section>
+            <section class="sec">
+              <div class="otp-card"><span class="lbl">${t('codeT')}</span><div class="otp-digits num">${'4821'.split('').map((d) => `<b>${d}</b>`).join('')}</div><p>${t('codeS')}</p></div>
+            </section>
+            <section class="sec">
+              <h2 class="sec-h" style="padding-bottom:16px">${t('status')}</h2>
+              <ol class="track">
+                <li class="on"><i></i><div><b>${t('st1')}</b><span>${t('st1s')}</span></div></li>
+                <li class="now"><i></i><div><b>${t('st2')}</b><span>${t('st2s')}</span></div></li>
+                <li><i></i><div><b>${t('st3')}</b><span>${t('st3s')}</span></div></li>
+              </ol>
+            </section>
+          </div>
+        </div>
+        <div class="footbar"><button class="out-btn">${I.phone}${t('call')}</button><button class="dark-btn" data-go="0" data-booked="1">${t('done')}</button></div>
+      </div>`,
+  ];
+
+  /* ---------------- partner screens ---------------- */
+  const ptop = () => {
+    const weak = S.net === 'weak';
+    return `
+    <div class="p-top">
+      <span class="stat-pill"><i class="dot"></i>${p('online')}</span>
+      <span class="stat-pill ${weak ? 'weak' : ''}"><span class="bars" aria-hidden="true">${[4, 7, 10, 12].map((h, i) => `<i style="height:${h}px" class="${i < (weak ? 1 : 4) ? '' : 'off'}"></i>`).join('')}</span>${weak ? p('weak') : p('good')}</span>
+      <span class="earn num">${p('todayAmt')} <b>${rs(1350)}</b></span>
+    </div>`;
+  };
+  const mapSvg = (big = false) => {
+    const h = big ? 200 : 168;
+    return `
+    <div class="map"><svg viewBox="0 0 340 ${h}" aria-hidden="true">
+      <rect class="blk" x="0" y="0" width="340" height="${h}"/>
+      <g class="rd" stroke-width="14" fill="none"><path d="M0 ${h - 50}H340"/><path d="M90 0V${h}"/><path d="M250 0V${h}"/><path d="M0 ${big ? 50 : 44}H340"/></g>
+      <g class="rd" stroke-width="6" fill="none"><path d="M170 0V${h}"/><path d="M0 ${h / 2}H340"/></g>
+      <path class="route route-anim" d="M40 ${h - 50}H170V${big ? 50 : 44}H250V${big ? 80 : 74}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="40" cy="${h - 50}" r="9" fill="var(--info)" stroke="var(--bg)" stroke-width="3"/>
+      <g transform="translate(250 ${big ? 80 : 74})"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24Z" fill="var(--accent)"/><circle cx="0" cy="-24" r="5" fill="var(--on-accent)"/></g>
+    </svg></div>`;
+  };
+  const partsTotal = () => Object.entries(S.parts).reduce((a, [id, q]) => a + PARTS.find((x) => x.id === id).price * q, 0);
+  const fee = Math.round((VISIT + LABOUR) * 0.1);
+  const payout = () => VISIT + LABOUR - fee + partsTotal();
+  const strip = (items) => `<div class="stat-strip">${items.map(([v, l]) => `<div><b class="num">${v}</b><span>${l}</span></div>`).join('')}</div>`;
+
+  const Pp = [
+    // 0 — job alert, laid out like a listing card
+    () => {
+      const C2 = 2 * Math.PI * 20;
+      return `
+      <div class="scr p">
+        ${osbar(1)}
+        ${ptop()}
+        <div class="p-body">
+          <div class="job-media">
+            ${mapSvg()}
+            <span class="pill-badge"><i></i>${p('newJob')}</span>
+            <span class="p-timer num" aria-label="Time left to accept"><svg viewBox="0 0 48 48"><circle class="track-c" cx="24" cy="24" r="20" stroke-width="3" fill="none"/><circle class="run" id="tring" cx="24" cy="24" r="20" stroke-width="3" fill="none" stroke-dasharray="${C2}" stroke-dashoffset="${C2 * (1 - S.timer / 30)}" stroke-linecap="round"/></svg><span id="tnum">${S.timer}s</span></span>
+          </div>
+          <div class="p-title"><h1>${p('job')}</h1><p>${I.pin}${p('area')}</p></div>
+          ${strip([['2.4', p('km')], ['9', p('min')], [p('now'), p('start')]])}
+          <div class="earn-row">
+            <span class="lbl">${p('youEarn')}</span>
+            <span class="amt num">${rs(VISIT + LABOUR - fee)}<span>${p('parts')}</span></span>
+            <span class="how num">${p('how')}</span>
+          </div>
+        </div>
+        <div class="p-actions">
+          <button class="p-big p-go p-accept" id="accept"><span class="fill"></span>${p('accept')}</button>
+          <button class="p-big p-out" data-go="0">${p('skip')}</button>
+        </div>
+      </div>`;
+    },
+
+    // 1 — accepted, offline-first
+    () => `
+      <div class="scr p">
+        ${osbar(S.net === 'weak' ? 1 : 3)}
+        ${ptop()}
+        <div class="p-body">
+          <div class="p-hero"><span class="ok-check">${I.check}</span><h1>${p('yours')}</h1><p>${p('yoursS')}</p></div>
+          <div class="p-notice ${S.acceptState === 'sent' ? 'sent' : ''}" aria-live="polite">
+            <span class="ic">${S.acceptState === 'sent' ? I.check : `<span class="spinner"></span>`}</span>
+            <div><b>${S.acceptState === 'sent' ? p('sent') : p('queued')}</b><span>${S.acceptState === 'sent' ? p('sentS') : p('queuedS')}</span></div>
+          </div>
+          ${strip([['2.4', p('km')], ['9', p('min')], [rs(VISIT + LABOUR - fee), p('parts')]])}
+        </div>
+        <div class="p-actions"><button class="p-big p-dark" data-go="2">${I.nav}${p('showWay')}</button></div>
+      </div>`,
+
+    // 2 — navigate + arrival code
+    () => `
+      <div class="scr p">
+        ${osbar(2)}
+        ${ptop()}
+        <div class="p-body">
+          ${mapSvg(true)}
+          <div class="p-addr"><b>${p('addr1')}</b><span>${p('landmark')}</span></div>
+          <div class="p-two"><button class="p-big p-out">${I.nav}${p('maps')}</button><button class="p-big p-out">${I.phone}${p('callC')}</button></div>
+        </div>
+        <div class="p-actions"><button class="p-big p-go" id="arrived">${p('arrived')}</button></div>
+        ${S.otpOpen ? `
+          <div class="sheet-scrim" data-close="otp"></div>
+          <div class="sheet" role="dialog" aria-label="${p('askCode')}">
+            <span class="grab"></span>
+            <div><h2>${p('askCode')}</h2><p class="sub">${p('askCodeS')}</p></div>
+            <div class="otp-boxes num ${S.otpBad ? 'bad' : ''}" aria-live="polite">${[0, 1, 2, 3].map((i) => `<b class="${i === S.otp.length ? 'cur' : ''}">${S.otp[i] || ''}</b>`).join('')}</div>
+            <p class="hint">${S.otpBad ? `<span style="color:var(--error);font-weight:500">${p('wrong')}</span>` : p('demo')}</p>
+            <div class="keypad">${['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'del'].map((k) => k === '' ? '<span></span>' : `<button data-key="${k}" aria-label="${k === 'del' ? 'Delete' : k}">${k === 'del' ? I.del : k}</button>`).join('')}</div>
+          </div>` : ''}
+      </div>`,
+
+    // 3 — bill as Airbnb-style price details
+    () => {
+      const lines = Object.entries(S.parts).filter(([, q]) => q > 0);
+      const total = VISIT + LABOUR + partsTotal();
+      return `
+      <div class="scr p">
+        ${osbar(2)}
+        ${ptop()}
+        <div class="p-body">
+          <div class="p-title"><h1>${p('bill')}</h1><p>${p('billS')}</p></div>
+          <div class="p-bill">
+            <div class="p-line"><div><b class="u">${p('visit')}</b><small>${p('visitS')}</small></div><span class="amt">${rs(VISIT)}</span></div>
+            <div class="p-line"><div><b class="u">${p('labour')}</b><small>${p('labourS')}</small></div><span class="amt">${rs(LABOUR)}</span></div>
+            ${lines.map(([id, q]) => { const pt = PARTS.find((x) => x.id === id); return `
+              <div class="p-line added"><div><b>${p(id)}</b><small class="num">${rs(pt.price)} × ${q} = ${rs(pt.price * q)}</small></div>
+                <span class="stepper"><button data-dec="${id}" aria-label="Remove one">${I.minus}</button><output class="num">${q}</output><button data-inc="${id}" aria-label="Add one">${I.plus}</button></span></div>`; }).join('')}
+          </div>
+          <button class="p-add" id="addpart"><span class="plus">${I.plus}</span>${p('addPart')}${I.chev}</button>
+          <div class="p-total"><b>${p('total')}</b><output class="num" id="ptotal">${rs(total)}</output></div>
+          <p class="p-note">${I.shield}<span>${p('billNote')}</span></p>
+        </div>
+        <div class="p-actions"><button class="p-big p-go" id="sendbill">${p('send')}</button></div>
+        ${S.partsOpen ? `
+          <div class="sheet-scrim" data-close="parts"></div>
+          <div class="sheet" role="dialog" aria-label="${p('pickPart')}">
+            <span class="grab"></span><h2>${p('pickPart')}</h2>
+            <div class="parts">${PARTS.map((pt) => `<button class="part" data-part="${pt.id}" aria-pressed="${(S.parts[pt.id] || 0) > 0}"><b>${p(pt.id)}</b><span class="num">${rs(pt.price)}</span></button>`).join('')}</div>
+            <button class="p-big p-dark" data-close="parts">${p('doneParts')}</button>
+          </div>` : ''}
+        ${S.billState === 'waiting' ? `
+          <div class="sheet-scrim"></div>
+          <div class="sheet" role="status">
+            <span class="grab"></span>
+            <div class="wait-card"><span class="pulse">${I.clock}</span><h2>${p('waiting')}</h2><p class="sub">${p('waitingS')}</p><p class="amt num">${rs(total)}</p></div>
+          </div>` : ''}
+      </div>`;
+    },
+
+    // 4 — paid today
+    () => `
+      <div class="scr p">
+        ${osbar(3)}
+        ${ptop()}
+        <div class="p-body">
+          <div class="p-hero"><span class="paid-pill">${I.check}${p('paid')}</span><p class="paid-amt" id="paidamt">${rs(payout())}</p><p class="paid-sub">${p('paidS')}</p></div>
+          <div class="p-bill">
+            <div class="p-line"><b>${p('work')}</b><span class="amt num">${rs(VISIT + LABOUR)}</span></div>
+            <div class="p-line"><b>${p('fee')}</b><span class="amt num">−${rs(fee)}</span></div>
+            <div class="p-line"><b>${p('partsBack')}</b><span class="amt num">${rs(partsTotal())}</span></div>
+          </div>
+          ${strip([['5', p('todayJobs')], [rs(1350 + payout()), p('todayEarn')], ['5.0 ★', p('rating')]])}
+        </div>
+        <div class="p-actions"><button class="p-big p-dark" data-go="0" data-reset="p">${p('next')}</button></div>
+      </div>`,
+  ];
+
+  /* ---------------- rendering ---------------- */
+  let lastKey = '';
+  function render(dir = 'none') {
+    const html = (S.j === 'c' ? C : Pp)[S.step]();
+    const key = S.j + S.step;
+    const old = screenEl.firstElementChild;
+    if (old && key === lastKey && dir === 'none') {
+      // same screen, state change: swap in place, keep scroll
+      const sc = old.querySelector('.scroll, .p-body');
+      const top = sc ? sc.scrollTop : 0;
+      screenEl.innerHTML = html;
+      const sc2 = screenEl.querySelector('.scroll, .p-body');
+      if (sc2) sc2.scrollTop = top;
+    } else {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = html.trim();
+      const neu = wrap.firstElementChild;
+      if (old) {
+        old.classList.add('leave');
+        setTimeout(() => old.remove(), 200);
+      }
+      neu.classList.add(dir === 'back' ? 'enter-back' : dir === 'up' ? 'enter-up' : 'enter-fwd');
+      screenEl.appendChild(neu);
+    }
+    lastKey = key;
+    wireScreen();
+    renderRail();
+  }
+
+  function go(step, opts = {}) {
+    const prev = S.step;
+    clearAll();
+    S.step = step;
+    if (S.j === 'c') {
+      if (step === 1) { S.voice = 'listening'; S.voiceWords = 0; }
+      if (step === 3) S.booking = false;
+    } else {
+      if (step === 0) { S.timer = 30; S.net = 'weak'; }
+      if (step === 1) { S.acceptState = 'queued'; S.net = 'weak'; }
+      if (step === 2) { S.otp = ''; S.otpOpen = false; S.otpBad = false; S.net = 'good'; }
+      if (step === 3) { S.partsOpen = false; S.billState = 'draft'; S.net = 'good'; }
+      if (step === 4) S.net = 'good';
+    }
+    render(opts.dir || (step === 1 && S.j === 'c' ? 'up' : step < prev ? 'back' : 'fwd'));
+    startScreen();
+  }
+
+  function startScreen() {
+    if (S.j === 'c' && S.step === 1) runVoice();
+    if (S.j === 'p' && S.step === 0) runTimer();
+    if (S.j === 'p' && S.step === 1 && S.acceptState === 'queued') later(() => { S.acceptState = 'sent'; S.net = 'good'; render(); }, 2600);
+  }
+
+  function runVoice() {
+    const words = t('said');
+    S.voice = 'listening';
+    const wave = () => screenEl.querySelectorAll('.wave i').forEach((b) => { b.style.height = (S.voice === 'listening' ? 6 + Math.random() * 26 : 8) + 'px'; });
+    every(wave, 140);
+    later(function step() {
+      if (S.voice !== 'listening') return;
+      S.voiceWords++;
+      const vt = screenEl.querySelector('#vt');
+      if (vt) vt.innerHTML = words.slice(0, S.voiceWords).map((w, i) => `<span class="w"${i < S.voiceWords - 1 ? ' style="animation:none"' : ''}>${w}</span>`).join(' ');
+      if (S.voiceWords < words.length) later(step, 420);
+      else later(understand, 700);
+    }, 900);
+  }
+  function understand() {
+    S.voice = 'understanding';
+    S.voiceWords = t('said').length;
+    render();
+    later(() => go(2), 1400);
+  }
+
+  function runTimer() {
+    const C2 = 2 * Math.PI * 20;
+    every(() => {
+      S.timer = S.timer <= 1 ? 30 : S.timer - 1;
+      const n = screenEl.querySelector('#tnum'); const r = screenEl.querySelector('#tring');
+      if (n) n.textContent = S.timer + 's';
+      if (r) r.style.strokeDashoffset = C2 * (1 - S.timer / 30);
+    }, 1000);
+  }
+
+  function wireScreen() {
+    const root = screenEl.lastElementChild;
+    root.querySelectorAll('[data-go]').forEach((el) => {
+      if (el.dataset.go === '') return;
+      el.addEventListener('click', () => {
+        if (el.dataset.booked) S.booked = true;
+        if (el.dataset.reset === 'p') { S.parts = {}; }
+        go(+el.dataset.go);
+      });
+    });
+    root.querySelectorAll('.brand-btn, .p-go').forEach((b) => b.addEventListener('pointermove', (e) => {
+      const r = b.getBoundingClientRect(); b.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    }));
+    const $ = (s) => root.querySelector(s);
+    const mic = $('#mic');
+    if (mic) mic.addEventListener('click', () => {
+      if (S.voice === 'listening') { clearAll(); understand(); }
+      else if (S.voice === 'idle') { S.voiceWords = 0; render(); runVoice(); }
+    });
+    root.querySelectorAll('[data-day]').forEach((b) => b.addEventListener('click', () => {
+      S.day = +b.dataset.day;
+      if (S.day === 0) S.slot = '6-8'; else if (S.slot === '9-11' && S.day !== 0) S.slot = '11-1';
+      render();
+    }));
+    root.querySelectorAll('[data-slot]').forEach((b) => b.addEventListener('click', () => { S.slot = b.dataset.slot; render(); }));
+    const share = $('#share'); if (share) share.addEventListener('click', () => { S.share = !S.share; render(); });
+    const book = $('#book'); if (book) book.addEventListener('click', () => { S.booking = true; render(); later(() => { S.booking = false; go(4); }, 1200); });
+
+    const accept = $('#accept');
+    if (accept) accept.addEventListener('click', () => { accept.classList.add('pressed'); clearAll(); later(() => go(1), 450); });
+    const arrived = $('#arrived'); if (arrived) arrived.addEventListener('click', () => { S.otpOpen = true; S.otp = ''; S.otpBad = false; render(); });
+    root.querySelectorAll('[data-key]').forEach((b) => b.addEventListener('click', () => {
+      const k = b.dataset.key;
+      S.otpBad = false;
+      if (k === 'del') S.otp = S.otp.slice(0, -1);
+      else if (S.otp.length < 4) S.otp += k;
+      render();
+      if (S.otp.length === 4) {
+        if (S.otp === CODE) later(() => go(3), 350);
+        else later(() => { S.otpBad = true; S.otp = ''; render(); }, 250);
+      }
+    }));
+    root.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.close === 'otp') S.otpOpen = false;
+      if (b.dataset.close === 'parts') S.partsOpen = false;
+      render();
+    }));
+    const add = $('#addpart'); if (add) add.addEventListener('click', () => { S.partsOpen = true; render(); });
+    root.querySelectorAll('[data-part]').forEach((b) => b.addEventListener('click', () => {
+      const id = b.dataset.part; S.parts[id] = (S.parts[id] || 0) > 0 ? 0 : 1; render();
+    }));
+    root.querySelectorAll('[data-inc]').forEach((b) => b.addEventListener('click', () => { S.parts[b.dataset.inc]++; render(); }));
+    root.querySelectorAll('[data-dec]').forEach((b) => b.addEventListener('click', () => { S.parts[b.dataset.dec] = Math.max(0, S.parts[b.dataset.dec] - 1); render(); }));
+    const send = $('#sendbill'); if (send) send.addEventListener('click', () => { S.billState = 'waiting'; render(); later(() => go(4), 2400); });
+  }
+
+  /* ---------------- rail ---------------- */
+  function renderRail() {
+    const J = JOURNEYS[S.j];
+    document.getElementById('j-title').textContent = J.title;
+    document.getElementById('j-desc').textContent = J.desc;
+    ['c', 'p'].forEach((k) => {
+      const tab = document.getElementById('tab-' + k);
+      tab.innerHTML = JOURNEYS[k].icon + `<span>${JOURNEYS[k].tab}</span>`;
+      tab.setAttribute('aria-selected', String(S.j === k));
+    });
+    document.getElementById('persona').innerHTML = S.j === 'c'
+      ? `<span class="ava ava-sm">${face('var(--accent-deep)', 'var(--ink-3)', false)}</span><div><b>${J.who}</b><span>${J.whoS}</span></div>`
+      : `<span class="ava ava-sm">${face('var(--info)')}</span><div><b>${J.who}</b><span>${J.whoS}</span></div>`;
+    document.getElementById('steps').innerHTML = J.steps.map((s, i) => `<li><button class="step-btn ${i < S.step ? 'done' : ''}" data-step="${i}" ${i === S.step ? 'aria-current="step"' : ''}><span class="step-n num">${i < S.step ? '✓' : i + 1}</span><span class="step-t">${s}</span></button></li>`).join('');
+    document.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => {
+      const n = +b.dataset.step;
+      if (S.j === 'p' && n >= 3 && !Object.keys(S.parts).length && n === 4) S.parts = { cap: 1 };
+      if (S.j === 'c' && n === 0) S.booked = false;
+      go(n);
+    }));
+    document.getElementById('lang-kn').setAttribute('aria-pressed', String(S.lang === 'kn'));
+    document.getElementById('lang-en').setAttribute('aria-pressed', String(S.lang === 'en'));
+    document.documentElement.lang = S.lang;
+  }
+
+  document.querySelectorAll('[data-journey]').forEach((b) => b.addEventListener('click', () => {
+    if (S.j === b.dataset.journey) return;
+    S.j = b.dataset.journey; S.step = 0; lastKey = '';
+    go(0, { dir: 'fwd' });
+  }));
+  document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => {
+    S.lang = b.dataset.lang; store.set('seva-lang', S.lang);
+    clearAll(); render(); startScreen();
+  }));
+  document.getElementById('restart').addEventListener('click', () => {
+    Object.assign(S, { step: 0, booked: false, parts: {}, day: 1, slot: '11-1', share: true });
+    go(0, { dir: 'back' });
+  });
+
+  // deep link: #partner opens the partner journey
+  if (location.hash === '#partner') S.j = 'p';
+  go(0, { dir: 'fwd' });
+})();
+</script>
+</body>
+</html>
