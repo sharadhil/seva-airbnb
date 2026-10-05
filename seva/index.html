@@ -336,18 +336,19 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
 .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); margin-right: 4px; animation: blink 1600ms var(--ease-out) infinite; }
 @keyframes blink { 50% { opacity: 0.3; } }
 
-.rail-cards { display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none; padding: 16px 24px 4px; margin-inline: -24px; scroll-snap-type: x mandatory; }
-.rail-cards::-webkit-scrollbar { display: none; }
-.tile { flex: none; width: 200px; display: flex; flex-direction: column; gap: 8px; scroll-snap-align: start; text-align: left; }
+.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-top: 16px; }
+.tile { display: block; width: 100%; min-width: 0; text-align: left; }
 .tile-img {
-  position: relative; height: 188px; border-radius: var(--r-lg); background: var(--wash); display: grid; place-items: center; overflow: hidden;
+  position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1 / 1; max-width: 100%;
+  border-radius: var(--r-lg); background: var(--wash); overflow: hidden;
 }
-.tile-img svg.il { width: 96px; height: 96px; transition: transform 400ms var(--ease-spring); }
+.tile-img svg.il { width: 48%; height: auto; transition: transform 400ms var(--ease-spring); }
 .tile:hover .tile-img svg.il { transform: scale(1.06); }
-.tile-img .pill-badge { position: absolute; top: 12px; left: 12px; }
-.tile b { font-family: var(--f-display); font-weight: 500; font-size: 15px; }
-.tile span { color: var(--ink-2); font-size: 13px; }
-.tile .meta { display: flex; flex-direction: column; }
+.tile-img .pill-badge { position: absolute; top: 8px; left: 8px; }
+.tile .meta { display: block; padding-top: 8px; }
+.tile .meta b, .tile .meta span { display: block; overflow-wrap: anywhere; }
+.tile .meta b { font-family: var(--f-display); font-weight: 500; font-size: 15px; }
+.tile .meta span { color: var(--ink-2); font-size: 13px; }
 
 .trust { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-radius: var(--r-lg); background: var(--surface); }
 .trust .row svg { color: var(--accent); }
@@ -673,7 +674,7 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
 
 /* Kannada runs longer and its matras need more size to stay legible for older eyes */
 :root[lang="kn"] .scr { line-height: 1.6; }
-:root[lang="kn"] .sp-text span, :root[lang="kn"] .row span, :root[lang="kn"] .tile span, :root[lang="kn"] .addr,
+:root[lang="kn"] .sp-text span, :root[lang="kn"] .row span, :root[lang="kn"] .tile .meta span, :root[lang="kn"] .addr,
 :root[lang="kn"] .upcoming span, :root[lang="kn"] .fam span, :root[lang="kn"] .page-sub, :root[lang="kn"] .slot span,
 :root[lang="kn"] .host-id span, :root[lang="kn"] .footbar .fb-price span, :root[lang="kn"] .otp-card p { font-size: 15px; }
 :root[lang="kn"] .cat, :root[lang="kn"] .host-stats span, :root[lang="kn"] .day small { font-size: 13px; }
@@ -1024,10 +1025,9 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
             </section>
             <section class="sec">
               <h2 class="sec-h">${t('bookAgain')} <span class="arrow">${I.arrow}</span></h2>
-              <div class="rail-cards">
-                <button class="tile"><div class="tile-img">${IL.bulb}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></div><div class="meta"><b>${t('fan')}</b><span>${t('fanBy')}</span><span class="num">₹199 ${t('visit')} · ★ 4.88</span></div></button>
-                <button class="tile"><div class="tile-img">${IL.spray}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></div><div class="meta"><b>${t('deep')}</b><span>${t('deepBy')}</span><span class="num">₹1,499 · ★ 4.95</span></div></button>
-                <button class="tile"><div class="tile-img">${IL.ac}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></div><div class="meta"><b>${t('ac')}</b><span>${t('deepBy').replace(/.*·/, '').trim()}</span><span class="num">₹499 · ★ 4.90</span></div></button>
+              <div class="card-grid">
+                <button class="tile"><span class="tile-img">${IL.bulb}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></span><span class="meta"><b>${t('fan')}</b><span>${t('fanBy')}</span><span class="num">₹199 ${t('visit')} · ★ 4.88</span></span></button>
+                <button class="tile"><span class="tile-img">${IL.spray}<span class="pill-badge">${I.shieldFill}${t('verified')}</span></span><span class="meta"><b>${t('deep')}</b><span>${t('deepBy')}</span><span class="num">₹1,499 · ★ 4.95</span></span></button>
               </div>
             </section>
             <section class="sec">
