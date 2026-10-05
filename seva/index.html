@@ -523,100 +523,123 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
 .track li span { font-size: 13px; color: var(--ink-2); }
 .track { padding: 0; margin: 0; }
 
-/* ---------- partner (high contrast, glove-friendly) ---------- */
-.p { font-size: 18px; }
+/* ---------- partner ----------
+   Same Airbnb language as the customer side (white surfaces, #DDDDDD hairlines, Rausch reserve button,
+   listing-card media with a white pill badge, stat strips, "price details" rows, round guest-counter steppers).
+   Sunlight and gloves are handled with size, not new styling: 17px base text, 64px buttons, 48px steppers. */
+.p { font-size: 17px; }
 .p-top {
-  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 20px;
-  background: var(--inverse); color: var(--on-inverse); font-family: var(--f-display); font-weight: 600; font-size: 15px;
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 20px 12px;
+  border-bottom: 1px solid var(--hairline); font-family: var(--f-display); font-size: 14px;
 }
-.p-top .online { display: inline-flex; align-items: center; gap: 8px; }
-.p-top .online i { width: 10px; height: 10px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 35%, transparent); }
-.p-top .sig { display: inline-flex; align-items: center; gap: 8px; }
-.p-top .sig .bars { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
-.p-top .sig .bars i { width: 4px; background: var(--on-inverse); border-radius: 1px; }
-.p-top .sig .bars i.off { opacity: 0.25; }
+.p-top .stat-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-pill); box-shadow: var(--ring); font-weight: 600; white-space: nowrap; }
+.p-top .stat-pill i.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+.p-top .stat-pill.weak { background: var(--wash); box-shadow: none; color: var(--accent-deep); }
+.p-top .bars { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
+.p-top .bars i { width: 3px; border-radius: 1px; background: currentColor; }
+.p-top .bars i.off { opacity: 0.25; }
+.p-top .earn { white-space: nowrap; color: var(--ink-2); }
+.p-top .earn b { color: var(--ink); font-weight: 600; }
 .p-body { flex: 1; overflow-y: auto; scrollbar-width: none; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
 .p-body::-webkit-scrollbar { display: none; }
-.p-actions { flex: none; padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 12px; border-top: 2px solid var(--line-strong); background: var(--bg); }
+.p-actions { flex: none; padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--hairline); background: var(--bg); }
+
 .p-big {
-  position: relative; overflow: hidden; width: 100%; min-height: 72px; border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; gap: 12px;
-  font-family: var(--f-display); font-weight: 700; font-size: 22px; letter-spacing: -0.01em; transition: transform 200ms var(--ease-std);
+  --mx: 50%;
+  position: relative; overflow: hidden; width: 100%; min-height: 64px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-family: var(--f-display); font-weight: 600; font-size: 20px; transition: transform 200ms var(--ease-std), background 200ms var(--ease-std);
 }
 .p-big:active { transform: scale(0.97); }
-.p-big svg { width: 28px; height: 28px; }
-.p-go { background: var(--accent-deep); color: var(--on-accent); }
+.p-big svg { width: 24px; height: 24px; }
+.p-go { background: radial-gradient(circle at var(--mx) 50%, var(--accent) 0%, var(--accent-deep) 100%); color: var(--on-accent); }
 .p-dark { background: var(--inverse); color: var(--on-inverse); }
-.p-out { box-shadow: inset 0 0 0 2px var(--line-strong); min-height: 64px; font-size: 20px; }
+.p-out { box-shadow: inset 0 0 0 1px var(--ink); min-height: 56px; font-size: 18px; }
+.p-out:hover { background: var(--surface); }
 .p-go .fill { position: absolute; inset: 0; background: color-mix(in srgb, var(--on-accent) 22%, transparent); transform-origin: left; transform: scaleX(0); }
 .p-go.pressed .fill { animation: fillx 500ms var(--ease-std) forwards; }
 @keyframes fillx { to { transform: scaleX(1); } }
-.p-chip-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.p-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: var(--r-pill); background: var(--accent-deep); color: var(--on-accent); font-family: var(--f-display); font-weight: 700; font-size: 16px; }
-.p-chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--on-accent); animation: blink 1000ms linear infinite; }
-.p-timer { display: flex; align-items: center; gap: 8px; font-family: var(--f-display); font-weight: 700; font-size: 20px; }
-.p-timer svg { width: 36px; height: 36px; transform: rotate(-90deg); }
+
+/* listing-style job card */
+.job-media { position: relative; border-radius: var(--r-lg); overflow: hidden; }
+.job-media .pill-badge { position: absolute; top: 12px; left: 12px; font-size: 14px; padding: 8px 12px; }
+.job-media .pill-badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: blink 1000ms linear infinite; }
+.p-timer {
+  position: absolute; top: 8px; right: 8px; width: 56px; height: 56px; border-radius: 50%; background: var(--bg); box-shadow: var(--sh-2);
+  display: grid; place-items: center; font-family: var(--f-display); font-weight: 600; font-size: 14px;
+}
+.p-timer svg { position: absolute; inset: 4px; width: 48px; height: 48px; transform: rotate(-90deg); }
 .p-timer circle.track-c { stroke: var(--hairline); }
-.p-timer circle.run { stroke: var(--accent-deep); transition: stroke-dashoffset 1000ms linear; }
-.p-label { font-size: 15px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
-.p-pay { font-family: var(--f-display); font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.p-pay span { font-size: 20px; font-weight: 600; color: var(--ink-2); letter-spacing: 0; }
-.p-job { font-size: 26px; font-weight: 700; line-height: 1.25; }
-.p-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.p-facts div { padding: 12px; border-radius: var(--r-md); box-shadow: inset 0 0 0 2px var(--line-strong); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.p-facts b { font-family: var(--f-display); font-size: 22px; font-weight: 700; }
-.p-facts span { font-size: 14px; color: var(--ink-2); font-weight: 500; }
-.p-area { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 18px; }
-.p-area svg { width: 22px; height: 22px; flex: none; }
-.map { border-radius: var(--r-lg); overflow: hidden; box-shadow: inset 0 0 0 2px var(--line-strong); background: var(--surface-2); }
+.p-timer circle.run { stroke: var(--accent); transition: stroke-dashoffset 1000ms linear; }
+.p-title { display: flex; flex-direction: column; gap: 4px; }
+.p-title h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.p-title p { color: var(--ink-2); font-size: 17px; display: flex; align-items: center; gap: 4px; }
+.p-title p svg { width: 18px; height: 18px; flex: none; }
+
+.stat-strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-radius: var(--r-md); box-shadow: var(--ring); padding-block: 16px; }
+.stat-strip div { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding-inline: 8px; min-width: 0; }
+.stat-strip div + div { border-left: 1px solid var(--hairline); }
+.stat-strip b { font-family: var(--f-display); font-size: 22px; font-weight: 600; }
+.stat-strip span { font-size: 14px; color: var(--ink-2); }
+
+.earn-row { display: flex; flex-direction: column; gap: 4px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.earn-row .lbl { font-size: 15px; color: var(--ink-2); }
+.earn-row .amt { font-family: var(--f-display); font-size: 40px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.earn-row .amt span { font-size: 18px; font-weight: 500; color: var(--ink-2); letter-spacing: 0; }
+.earn-row .how { font-size: 15px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+
+.map { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--ring); background: var(--surface-2); }
 .map svg { display: block; width: 100%; height: auto; }
 .map .rd { stroke: var(--bg); }
-.map .blk { fill: var(--hairline); }
-.map .route { stroke: var(--ink); stroke-dasharray: 8 0; }
+.map .blk { fill: var(--surface-2); }
+.map .route { stroke: var(--ink); }
 .map .route-anim { stroke-dasharray: 400; stroke-dashoffset: 400; animation: route 1600ms 200ms var(--ease-std) forwards; }
 @keyframes route { to { stroke-dashoffset: 0; } }
-.p-net {
-  display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: center; padding: 16px; border-radius: var(--r-lg);
-  box-shadow: inset 0 0 0 2px var(--line-strong); transition: background 300ms var(--ease-std), box-shadow 300ms var(--ease-std);
-}
-.p-net .ic { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--inverse); color: var(--on-inverse); }
-.p-net .ic svg { width: 22px; height: 22px; }
-.p-net b { display: block; font-family: var(--f-display); font-size: 18px; font-weight: 700; }
-.p-net span { font-size: 15px; color: var(--ink-2); }
-.p-net.sent { background: var(--success-wash); box-shadow: inset 0 0 0 2px var(--success); }
-.p-net.sent .ic { background: var(--success); }
-.p-hero { display: flex; flex-direction: column; gap: 12px; }
-.p-hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
-.p-ok { width: 72px; height: 72px; border-radius: 50%; background: var(--success); color: var(--on-accent); display: grid; place-items: center; animation: pop 500ms var(--ease-spring) both; }
-.p-ok svg { width: 40px; height: 40px; }
-.p-ok path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw 400ms 250ms var(--ease-std) forwards; }
-.p-addr { display: flex; flex-direction: column; gap: 4px; }
-.p-addr b { font-family: var(--f-display); font-size: 26px; font-weight: 800; line-height: 1.2; }
-.p-addr span { font-size: 18px; color: var(--ink-2); font-weight: 500; }
-.p-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.p-two .p-big { flex-direction: column; gap: 4px; font-size: 18px; min-height: 88px; }
 
+.p-notice {
+  display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: center; padding: 16px; border-radius: var(--r-lg);
+  background: var(--surface); transition: background 300ms var(--ease-std);
+}
+.p-notice .ic { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); box-shadow: var(--sh-1); color: var(--ink); }
+.p-notice .ic svg { width: 22px; height: 22px; }
+.p-notice b { display: block; font-family: var(--f-display); font-size: 17px; font-weight: 600; }
+.p-notice span { font-size: 15px; color: var(--ink-2); }
+.p-notice.sent { background: var(--success-wash); }
+.p-notice.sent .ic { background: var(--success); color: var(--on-accent); box-shadow: none; }
+.p-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.p-hero h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+.p-hero p { font-size: 17px; color: var(--ink-2); }
+.p-addr { display: flex; flex-direction: column; gap: 4px; }
+.p-addr b { font-family: var(--f-display); font-size: 24px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+.p-addr span { font-size: 17px; color: var(--ink-2); }
+.p-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* price details */
 .p-bill { display: flex; flex-direction: column; }
-.p-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding-block: 14px; border-bottom: 2px solid var(--hairline); }
-.p-line b { font-family: var(--f-display); font-size: 18px; font-weight: 600; }
-.p-line .amt { font-family: var(--f-display); font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.p-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding-block: 12px; }
+.p-line b { font-family: var(--f-body); font-size: 17px; font-weight: 400; }
+.p-line .amt { font-size: 17px; font-variant-numeric: tabular-nums; }
 .p-line small { display: block; font-size: 14px; color: var(--ink-2); }
 .p-line.added { animation: rise 400ms var(--ease-spring) both; }
-.stepper { display: inline-flex; align-items: center; gap: 4px; }
-.stepper button { width: 48px; height: 48px; border-radius: var(--r-md); box-shadow: inset 0 0 0 2px var(--line-strong); display: grid; place-items: center; transition: transform 200ms var(--ease-std); }
+.p-line .u { text-decoration: underline; text-underline-offset: 2px; }
+.stepper { display: inline-flex; align-items: center; gap: 12px; }
+.stepper button { width: 48px; height: 48px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink-3); display: grid; place-items: center; color: var(--ink-2); transition: transform 200ms var(--ease-std), box-shadow 200ms var(--ease-std); }
+.stepper button:hover { box-shadow: inset 0 0 0 1px var(--ink); color: var(--ink); }
 .stepper button:active { transform: scale(0.92); }
-.stepper button svg { width: 20px; height: 20px; }
-.stepper output { min-width: 32px; text-align: center; font-family: var(--f-display); font-weight: 700; font-size: 20px; }
+.stepper button svg { width: 18px; height: 18px; }
+.stepper output { min-width: 24px; text-align: center; font-size: 17px; }
 .p-add {
-  width: 100%; min-height: 64px; border-radius: var(--r-lg); border: 2px dashed var(--line-strong); display: flex; align-items: center; justify-content: center; gap: 8px;
-  font-family: var(--f-display); font-weight: 700; font-size: 20px; transition: background 200ms var(--ease-std), transform 200ms var(--ease-std);
+  width: 100%; min-height: 64px; padding: 0 16px; border-radius: var(--r-md); box-shadow: var(--ring); display: grid; grid-template-columns: 40px minmax(0, 1fr) 16px; gap: 12px; align-items: center;
+  font-family: var(--f-display); font-weight: 600; font-size: 17px; text-align: left; transition: box-shadow 200ms var(--ease-std), transform 200ms var(--ease-std);
 }
+.p-add:hover { box-shadow: inset 0 0 0 1px var(--ink); }
 .p-add:active { transform: scale(0.98); }
-.p-add svg { width: 24px; height: 24px; }
-.p-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 4px; }
-.p-total b { font-family: var(--f-display); font-size: 22px; font-weight: 700; }
-.p-total output { font-family: var(--f-display); font-size: 36px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.p-add .plus { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; }
+.p-add svg { width: 18px; height: 18px; }
+.p-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 16px; border-top: 1px solid var(--hairline); }
+.p-total b { font-family: var(--f-display); font-size: 18px; font-weight: 600; }
+.p-total output { font-family: var(--f-display); font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .p-note { font-size: 15px; color: var(--ink-2); display: flex; gap: 8px; align-items: flex-start; }
-.p-note svg { width: 20px; height: 20px; flex: none; color: var(--success); margin-top: 2px; }
+.p-note svg { width: 20px; height: 20px; flex: none; color: var(--accent); margin-top: 2px; }
 
 .sheet-scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 10; animation: fadeIn 300ms var(--ease-std) both; }
 .sheet {
@@ -625,43 +648,44 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
   animation: sheetUp 400ms var(--ease-sheet) both; max-height: 88%; overflow-y: auto;
 }
 .sheet .grab { width: 40px; height: 4px; border-radius: 2px; background: var(--hairline); align-self: center; }
-.sheet h2 { font-size: 24px; font-weight: 800; }
+.sheet h2 { font-size: 22px; font-weight: 700; }
+.sheet .sub { font-size: 15px; color: var(--ink-2); }
 @keyframes sheetUp { from { transform: translateY(100%); } }
 @keyframes fadeIn { from { opacity: 0; } }
 .parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .part {
-  min-height: 104px; padding: 16px; border-radius: var(--r-lg); box-shadow: inset 0 0 0 2px var(--line-strong);
-  display: flex; flex-direction: column; justify-content: space-between; gap: 8px; text-align: left; transition: transform 200ms var(--ease-std), background 200ms var(--ease-std);
+  min-height: 96px; padding: 16px; border-radius: var(--r-md); box-shadow: var(--ring);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 8px; text-align: left;
+  transition: transform 200ms var(--ease-std), box-shadow 200ms var(--ease-std), background 200ms var(--ease-std);
 }
+.part:hover { box-shadow: inset 0 0 0 1px var(--ink); }
 .part:active { transform: scale(0.96); }
-.part b { font-family: var(--f-display); font-size: 18px; font-weight: 700; line-height: 1.25; }
-.part span { font-family: var(--f-display); font-size: 20px; font-weight: 800; }
-.part[aria-pressed="true"] { background: var(--inverse); color: var(--on-inverse); }
+.part b { font-family: var(--f-display); font-size: 17px; font-weight: 600; line-height: 1.25; }
+.part span { font-size: 16px; color: var(--ink-2); }
+.part[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink); background: var(--surface); }
 
 .otp-boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.otp-boxes b { height: 72px; border-radius: var(--r-md); box-shadow: inset 0 0 0 2px var(--line-strong); display: grid; place-items: center; font-family: var(--f-display); font-size: 36px; font-weight: 800; }
-.otp-boxes b.cur { box-shadow: inset 0 0 0 3px var(--accent-deep); }
+.otp-boxes b { height: 64px; border-radius: var(--r-md); box-shadow: var(--ring); display: grid; place-items: center; font-family: var(--f-display); font-size: 28px; font-weight: 600; transition: box-shadow 200ms var(--ease-std); }
+.otp-boxes b.cur { box-shadow: inset 0 0 0 2px var(--ink); }
 .otp-boxes.bad { animation: shake 400ms var(--ease-std); }
-.otp-boxes.bad b { box-shadow: inset 0 0 0 3px var(--error); }
+.otp-boxes.bad b { box-shadow: inset 0 0 0 2px var(--error); background: var(--wash); }
 @keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.keypad button { height: 64px; border-radius: var(--r-md); background: var(--surface-2); font-family: var(--f-display); font-size: 28px; font-weight: 700; display: grid; place-items: center; transition: transform 150ms var(--ease-std), background 150ms var(--ease-std); }
-.keypad button:active { transform: scale(0.94); background: var(--hairline); }
-.keypad button svg { width: 28px; height: 28px; }
+.keypad button { height: 60px; border-radius: var(--r-md); background: var(--surface); font-family: var(--f-display); font-size: 24px; font-weight: 500; display: grid; place-items: center; transition: transform 150ms var(--ease-std), background 150ms var(--ease-std); }
+.keypad button:active { transform: scale(0.94); background: var(--surface-2); }
+.keypad button svg { width: 24px; height: 24px; }
 .hint { font-size: 14px; color: var(--ink-2); text-align: center; }
 
-.wait-card { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; padding: 24px 8px 8px; }
-.wait-card .pulse { width: 72px; height: 72px; border-radius: 50%; background: var(--inverse); color: var(--on-inverse); display: grid; place-items: center; position: relative; }
-.wait-card .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; animation: ripple 1600ms var(--ease-out) infinite; background: var(--inverse); }
-.wait-card .pulse svg { width: 32px; height: 32px; position: relative; z-index: 1; }
+.wait-card { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 16px 8px 8px; }
+.wait-card .pulse { width: 64px; height: 64px; border-radius: 50%; background: var(--wash); color: var(--accent); display: grid; place-items: center; position: relative; }
+.wait-card .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; animation: ripple 1600ms var(--ease-out) infinite; background: var(--accent); }
+.wait-card .pulse svg { width: 28px; height: 28px; position: relative; z-index: 1; }
+.wait-card .amt { font-family: var(--f-display); font-size: 28px; font-weight: 700; }
 
-.paid-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: var(--r-pill); background: var(--success); color: var(--on-accent); font-family: var(--f-display); font-weight: 700; font-size: 18px; animation: pop 500ms 300ms var(--ease-spring) both; align-self: flex-start; }
-.paid-pill svg { width: 20px; height: 20px; }
-.paid-amt { font-family: var(--f-display); font-size: 64px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
-.today { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.today div { padding: 16px; border-radius: var(--r-lg); background: var(--surface-2); display: flex; flex-direction: column; gap: 4px; }
-.today b { font-family: var(--f-display); font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
-.today span { font-size: 15px; color: var(--ink-2); font-weight: 500; }
+.paid-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: var(--r-pill); background: var(--success-wash); color: var(--success); font-family: var(--f-display); font-weight: 600; font-size: 16px; animation: pop 500ms 300ms var(--ease-spring) both; align-self: flex-start; }
+.paid-pill svg { width: 18px; height: 18px; }
+.p-hero .paid-amt { color: var(--ink); font-family: var(--f-display); font-size: 56px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.p-hero .paid-sub { font-size: 17px; color: var(--ink-2); padding-top: 8px; }
 
 /* screen transitions */
 .enter-fwd { animation: enterFwd 350ms var(--ease-std) both; }
@@ -679,7 +703,7 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
 :root[lang="kn"] .host-id span, :root[lang="kn"] .footbar .fb-price span, :root[lang="kn"] .otp-card p { font-size: 15px; }
 :root[lang="kn"] .cat, :root[lang="kn"] .host-stats span, :root[lang="kn"] .day small { font-size: 13px; }
 :root[lang="kn"] .tabbar span { font-size: 12px; }
-:root[lang="kn"] .p-facts span, :root[lang="kn"] .p-line small, :root[lang="kn"] .today span { font-size: 15px; }
+:root[lang="kn"] .stat-strip span, :root[lang="kn"] .p-line small { font-size: 15px; }
 
 /* phones: put the device right under the journey tabs, controls after it */
 @media (max-width: 900px) {
@@ -729,7 +753,7 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
       <div><b>Colour</b><span>Rausch for the one action per screen. Ink, greys and #DDDDDD hairlines do the rest.</span>
         <span class="swatches"><i style="background:#ff385c"></i><i style="background:#da1249"></i><i style="background:#222222"></i><i style="background:#6c6c6c"></i><i style="background:#f7f7f7"></i><i style="background:#038026"></i></span></div>
       <div><b>Type</b><span>Airbnb Cereal for display, Roboto for body. Noto Sans Kannada for Kannada text, sized to wrap without clipping.</span></div>
-      <div><b>Partner mode</b><span>Same tokens, pushed for sunlight: 2px ink outlines, 72px buttons, 18px base text, deep Rausch for contrast.</span></div>
+      <div><b>Partner mode</b><span>Same components as the customer app, sized for gloves and sunlight: 64px buttons, 48px steppers, 17px base text.</span></div>
       <div><b>Motion</b><span>Spring cubic-bezier(0.34,1.56,0.64,1) for confirmations, the sheet curve for bottom sheets, 200ms press scale.</span></div>
     </div>
   </aside>
@@ -906,7 +930,8 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
       waiting: 'ಗೀತಾ ಅವರ ಒಪ್ಪಿಗೆಗಾಗಿ ಕಾಯುತ್ತಿದ್ದೇವೆ', waitingS: 'ಅವರು ಬಿಲ್ ನೋಡಿ UPI ಮೂಲಕ ಪಾವತಿಸುತ್ತಾರೆ',
       paid: 'ಇಂದೇ ಪಾವತಿ', paidS: 'ಸಂಜೆ 6 ರೊಳಗೆ ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ',
       breakdown: 'ಲೆಕ್ಕ', work: 'ಭೇಟಿ + ಕೂಲಿ', fee: 'ಸೇವಾ ಶುಲ್ಕ (10%)', partsBack: 'ಬಿಡಿಭಾಗ (ಪೂರ್ತಿ ವಾಪಸ್)',
-      todayJobs: 'ಇಂದಿನ ಕೆಲಸ', todayEarn: 'ಇಂದಿನ ಗಳಿಕೆ', next: 'ಮುಂದಿನ ಕೆಲಸ ನೋಡಿ',
+      todayJobs: 'ಇಂದಿನ ಕೆಲಸ', todayEarn: 'ಇಂದಿನ ಗಳಿಕೆ', next: 'ಮುಂದಿನ ಕೆಲಸ ನೋಡಿ', rating: 'ಈ ಕೆಲಸದ ರೇಟಿಂಗ್',
+      how: '₹199 ಭೇಟಿ + ₹250 ಕೂಲಿ − 10% ಸೇವಾ ಶುಲ್ಕ', billNote: 'ಬಿಡಿಭಾಗದ ಹಣ ಪೂರ್ತಿ ನಿಮಗೆ ವಾಪಸ್ ಬರುತ್ತದೆ',
     },
     en: {
       online: 'Online', todayAmt: 'Today', weak: 'Weak signal', good: 'Good signal',
@@ -929,7 +954,8 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
       waiting: 'Waiting for Geetha to approve', waitingS: 'She checks the bill and pays by UPI',
       paid: 'Paid today', paidS: 'Reaches your bank account by 6 PM',
       breakdown: 'Breakdown', work: 'Visit + labour', fee: 'Seva fee (10%)', partsBack: 'Parts (paid back in full)',
-      todayJobs: 'Jobs today', todayEarn: 'Earned today', next: 'See next job',
+      todayJobs: 'Jobs today', todayEarn: 'Earned today', next: 'See next job', rating: 'Job rating',
+      how: '₹199 visit + ₹250 labour − 10% Seva fee', billNote: 'You get the full part price back',
     },
   };
 
@@ -1155,42 +1181,56 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
   ];
 
   /* ---------------- partner screens ---------------- */
-  const ptop = () => `
-    <div class="p-top"><span class="online"><i></i>${p('online')}</span>
-      <span class="sig"><span class="bars" aria-hidden="true">${[5, 8, 11, 14].map((h, i) => `<i style="height:${h}px" class="${i < (S.net === 'weak' ? 1 : 4) ? '' : 'off'}"></i>`).join('')}</span>${S.net === 'weak' ? p('weak') : p('good')}</span>
-      <span class="num">${p('todayAmt')} ${rs(1350)}</span></div>`;
-  const mapSvg = (big = false) => `
-    <div class="map"><svg viewBox="0 0 340 ${big ? 200 : 120}" aria-hidden="true">
-      <rect class="blk" x="0" y="0" width="340" height="${big ? 200 : 120}"/>
-      <g class="rd" stroke-width="14" fill="none"><path d="M0 ${big ? 150 : 90}H340"/><path d="M90 0V${big ? 200 : 120}"/><path d="M250 0V${big ? 200 : 120}"/><path d="M0 ${big ? 50 : 30}H340"/></g>
-      <g class="rd" stroke-width="6" fill="none"><path d="M170 0V${big ? 200 : 120}"/><path d="M0 ${big ? 100 : 60}H340"/></g>
-      <path class="route route-anim" d="M40 ${big ? 150 : 90}H170V${big ? 50 : 30}H250V${big ? 70 : 40}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="40" cy="${big ? 150 : 90}" r="9" fill="var(--info)" stroke="var(--bg)" stroke-width="3"/>
-      <g transform="translate(250 ${big ? 70 : 40})"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24Z" fill="var(--accent-deep)" transform="translate(0 0)"/><circle cx="0" cy="-24" r="5" fill="var(--on-accent)"/></g>
+  const ptop = () => {
+    const weak = S.net === 'weak';
+    return `
+    <div class="p-top">
+      <span class="stat-pill"><i class="dot"></i>${p('online')}</span>
+      <span class="stat-pill ${weak ? 'weak' : ''}"><span class="bars" aria-hidden="true">${[4, 7, 10, 12].map((h, i) => `<i style="height:${h}px" class="${i < (weak ? 1 : 4) ? '' : 'off'}"></i>`).join('')}</span>${weak ? p('weak') : p('good')}</span>
+      <span class="earn num">${p('todayAmt')} <b>${rs(1350)}</b></span>
+    </div>`;
+  };
+  const mapSvg = (big = false) => {
+    const h = big ? 200 : 168;
+    return `
+    <div class="map"><svg viewBox="0 0 340 ${h}" aria-hidden="true">
+      <rect class="blk" x="0" y="0" width="340" height="${h}"/>
+      <g class="rd" stroke-width="14" fill="none"><path d="M0 ${h - 50}H340"/><path d="M90 0V${h}"/><path d="M250 0V${h}"/><path d="M0 ${big ? 50 : 44}H340"/></g>
+      <g class="rd" stroke-width="6" fill="none"><path d="M170 0V${h}"/><path d="M0 ${h / 2}H340"/></g>
+      <path class="route route-anim" d="M40 ${h - 50}H170V${big ? 50 : 44}H250V${big ? 80 : 74}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="40" cy="${h - 50}" r="9" fill="var(--info)" stroke="var(--bg)" stroke-width="3"/>
+      <g transform="translate(250 ${big ? 80 : 74})"><path d="M0 0c-9-11-14-17-14-24a14 14 0 0 1 28 0c0 7-5 13-14 24Z" fill="var(--accent)"/><circle cx="0" cy="-24" r="5" fill="var(--on-accent)"/></g>
     </svg></div>`;
+  };
   const partsTotal = () => Object.entries(S.parts).reduce((a, [id, q]) => a + PARTS.find((x) => x.id === id).price * q, 0);
   const fee = Math.round((VISIT + LABOUR) * 0.1);
   const payout = () => VISIT + LABOUR - fee + partsTotal();
+  const strip = (items) => `<div class="stat-strip">${items.map(([v, l]) => `<div><b class="num">${v}</b><span>${l}</span></div>`).join('')}</div>`;
 
   const Pp = [
-    // 0 — job alert
+    // 0 — job alert, laid out like a listing card
     () => {
-      const C2 = 2 * Math.PI * 15;
+      const C2 = 2 * Math.PI * 20;
       return `
       <div class="scr p">
         ${osbar(1)}
         ${ptop()}
         <div class="p-body">
-          <div class="p-chip-row"><span class="p-chip"><i></i>${p('newJob')}</span>
-            <span class="p-timer num"><svg viewBox="0 0 36 36"><circle class="track-c" cx="18" cy="18" r="15" stroke-width="4" fill="none"/><circle class="run" id="tring" cx="18" cy="18" r="15" stroke-width="4" fill="none" stroke-dasharray="${C2}" stroke-dashoffset="${C2 * (1 - S.timer / 30)}" stroke-linecap="round"/></svg><span id="tnum">0:${String(S.timer).padStart(2, '0')}</span></span></div>
-          <div><p class="p-label">${p('youEarn')}</p><p class="p-pay num">${rs(VISIT + LABOUR - fee)}<span>${p('parts')}</span></p></div>
-          <h1 class="p-job">${p('job')}</h1>
-          <div class="p-facts"><div><b class="num">2.4</b><span>${p('km')}</span></div><div><b class="num">9</b><span>${p('min')}</span></div><div><b>${p('now')}</b><span>${p('start')}</span></div></div>
-          <p class="p-area">${I.pin}${p('area')}</p>
-          ${mapSvg()}
+          <div class="job-media">
+            ${mapSvg()}
+            <span class="pill-badge"><i></i>${p('newJob')}</span>
+            <span class="p-timer num" aria-label="Time left to accept"><svg viewBox="0 0 48 48"><circle class="track-c" cx="24" cy="24" r="20" stroke-width="3" fill="none"/><circle class="run" id="tring" cx="24" cy="24" r="20" stroke-width="3" fill="none" stroke-dasharray="${C2}" stroke-dashoffset="${C2 * (1 - S.timer / 30)}" stroke-linecap="round"/></svg><span id="tnum">${S.timer}s</span></span>
+          </div>
+          <div class="p-title"><h1>${p('job')}</h1><p>${I.pin}${p('area')}</p></div>
+          ${strip([['2.4', p('km')], ['9', p('min')], [p('now'), p('start')]])}
+          <div class="earn-row">
+            <span class="lbl">${p('youEarn')}</span>
+            <span class="amt num">${rs(VISIT + LABOUR - fee)}<span>${p('parts')}</span></span>
+            <span class="how num">${p('how')}</span>
+          </div>
         </div>
         <div class="p-actions">
-          <button class="p-big p-go" id="accept"><span class="fill"></span>${I.check}${p('accept')}</button>
+          <button class="p-big p-go" id="accept"><span class="fill"></span>${p('accept')}</button>
           <button class="p-big p-out" data-go="0">${p('skip')}</button>
         </div>
       </div>`;
@@ -1202,12 +1242,12 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
         ${osbar(S.net === 'weak' ? 1 : 3)}
         ${ptop()}
         <div class="p-body">
-          <div class="p-hero"><span class="p-ok">${I.check}</span><h1>${p('yours')}</h1><p style="font-size:18px;color:var(--ink-2);font-weight:500">${p('yoursS')}</p></div>
-          <div class="p-net ${S.acceptState === 'sent' ? 'sent' : ''}" aria-live="polite">
-            <span class="ic">${S.acceptState === 'sent' ? I.check : `<span class="spinner" style="width:22px;height:22px"></span>`}</span>
+          <div class="p-hero"><span class="ok-check">${I.check}</span><h1>${p('yours')}</h1><p>${p('yoursS')}</p></div>
+          <div class="p-notice ${S.acceptState === 'sent' ? 'sent' : ''}" aria-live="polite">
+            <span class="ic">${S.acceptState === 'sent' ? I.check : `<span class="spinner"></span>`}</span>
             <div><b>${S.acceptState === 'sent' ? p('sent') : p('queued')}</b><span>${S.acceptState === 'sent' ? p('sentS') : p('queuedS')}</span></div>
           </div>
-          <div class="p-facts"><div><b class="num">2.4</b><span>${p('km')}</span></div><div><b class="num">9</b><span>${p('min')}</span></div><div><b class="num">${rs(VISIT + LABOUR - fee)}</b><span>${p('parts')}</span></div></div>
+          ${strip([['2.4', p('km')], ['9', p('min')], [rs(VISIT + LABOUR - fee), p('parts')]])}
         </div>
         <div class="p-actions"><button class="p-big p-dark" data-go="2">${I.nav}${p('showWay')}</button></div>
       </div>`,
@@ -1222,19 +1262,19 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
           <div class="p-addr"><b>${p('addr1')}</b><span>${p('landmark')}</span></div>
           <div class="p-two"><button class="p-big p-out">${I.nav}${p('maps')}</button><button class="p-big p-out">${I.phone}${p('callC')}</button></div>
         </div>
-        <div class="p-actions"><button class="p-big p-go" id="arrived">${I.pin}${p('arrived')}</button></div>
+        <div class="p-actions"><button class="p-big p-go" id="arrived">${p('arrived')}</button></div>
         ${S.otpOpen ? `
           <div class="sheet-scrim" data-close="otp"></div>
           <div class="sheet" role="dialog" aria-label="${p('askCode')}">
             <span class="grab"></span>
-            <div><h2>${p('askCode')}</h2><p style="font-size:16px;color:var(--ink-2)">${p('askCodeS')}</p></div>
+            <div><h2>${p('askCode')}</h2><p class="sub">${p('askCodeS')}</p></div>
             <div class="otp-boxes num ${S.otpBad ? 'bad' : ''}" aria-live="polite">${[0, 1, 2, 3].map((i) => `<b class="${i === S.otp.length ? 'cur' : ''}">${S.otp[i] || ''}</b>`).join('')}</div>
-            <p class="hint">${S.otpBad ? `<span style="color:var(--error);font-weight:600">${p('wrong')}</span>` : p('demo')}</p>
+            <p class="hint">${S.otpBad ? `<span style="color:var(--error);font-weight:500">${p('wrong')}</span>` : p('demo')}</p>
             <div class="keypad">${['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'del'].map((k) => k === '' ? '<span></span>' : `<button data-key="${k}" aria-label="${k === 'del' ? 'Delete' : k}">${k === 'del' ? I.del : k}</button>`).join('')}</div>
           </div>` : ''}
       </div>`,
 
-    // 3 — bill with parts
+    // 3 — bill as Airbnb-style price details
     () => {
       const lines = Object.entries(S.parts).filter(([, q]) => q > 0);
       const total = VISIT + LABOUR + partsTotal();
@@ -1243,18 +1283,19 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
         ${osbar(2)}
         ${ptop()}
         <div class="p-body">
-          <div><h1 style="font-size:32px;font-weight:800">${p('bill')}</h1><p style="font-size:16px;color:var(--ink-2)">${p('billS')}</p></div>
+          <div class="p-title"><h1>${p('bill')}</h1><p>${p('billS')}</p></div>
           <div class="p-bill">
-            <div class="p-line"><div><b>${p('visit')}</b><small>${p('visitS')}</small></div><span class="amt">${rs(VISIT)}</span></div>
-            <div class="p-line"><div><b>${p('labour')}</b><small>${p('labourS')}</small></div><span class="amt">${rs(LABOUR)}</span></div>
+            <div class="p-line"><div><b class="u">${p('visit')}</b><small>${p('visitS')}</small></div><span class="amt">${rs(VISIT)}</span></div>
+            <div class="p-line"><div><b class="u">${p('labour')}</b><small>${p('labourS')}</small></div><span class="amt">${rs(LABOUR)}</span></div>
             ${lines.map(([id, q]) => { const pt = PARTS.find((x) => x.id === id); return `
               <div class="p-line added"><div><b>${p(id)}</b><small class="num">${rs(pt.price)} × ${q} = ${rs(pt.price * q)}</small></div>
                 <span class="stepper"><button data-dec="${id}" aria-label="Remove one">${I.minus}</button><output class="num">${q}</output><button data-inc="${id}" aria-label="Add one">${I.plus}</button></span></div>`; }).join('')}
           </div>
-          <button class="p-add" id="addpart">${I.plus}${p('addPart')}</button>
+          <button class="p-add" id="addpart"><span class="plus">${I.plus}</span>${p('addPart')}${I.chev}</button>
           <div class="p-total"><b>${p('total')}</b><output class="num" id="ptotal">${rs(total)}</output></div>
+          <p class="p-note">${I.shield}<span>${p('billNote')}</span></p>
         </div>
-        <div class="p-actions"><button class="p-big p-go" id="sendbill">${I.arrow}${p('send')}</button></div>
+        <div class="p-actions"><button class="p-big p-go" id="sendbill">${p('send')}</button></div>
         ${S.partsOpen ? `
           <div class="sheet-scrim" data-close="parts"></div>
           <div class="sheet" role="dialog" aria-label="${p('pickPart')}">
@@ -1266,7 +1307,7 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
           <div class="sheet-scrim"></div>
           <div class="sheet" role="status">
             <span class="grab"></span>
-            <div class="wait-card"><span class="pulse">${I.clock}</span><h2>${p('waiting')}</h2><p style="font-size:16px;color:var(--ink-2)">${p('waitingS')}</p><p class="num" style="font-family:var(--f-display);font-size:32px;font-weight:800">${rs(total)}</p></div>
+            <div class="wait-card"><span class="pulse">${I.clock}</span><h2>${p('waiting')}</h2><p class="sub">${p('waitingS')}</p><p class="amt num">${rs(total)}</p></div>
           </div>` : ''}
       </div>`;
     },
@@ -1277,15 +1318,13 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
         ${osbar(3)}
         ${ptop()}
         <div class="p-body">
-          <span class="paid-pill">${I.check}${p('paid')}</span>
-          <div><p class="paid-amt" id="paidamt">${rs(payout())}</p><p style="font-size:18px;color:var(--ink-2);font-weight:500;padding-top:8px">${p('paidS')}</p></div>
+          <div class="p-hero"><span class="paid-pill">${I.check}${p('paid')}</span><p class="paid-amt" id="paidamt">${rs(payout())}</p><p class="paid-sub">${p('paidS')}</p></div>
           <div class="p-bill">
-            <div class="p-line"><b>${p('work')}</b><span class="amt">${rs(VISIT + LABOUR)}</span></div>
-            <div class="p-line"><b>${p('fee')}</b><span class="amt">−${rs(fee)}</span></div>
-            <div class="p-line"><b>${p('partsBack')}</b><span class="amt">${rs(partsTotal())}</span></div>
+            <div class="p-line"><b>${p('work')}</b><span class="amt num">${rs(VISIT + LABOUR)}</span></div>
+            <div class="p-line"><b>${p('fee')}</b><span class="amt num">−${rs(fee)}</span></div>
+            <div class="p-line"><b>${p('partsBack')}</b><span class="amt num">${rs(partsTotal())}</span></div>
           </div>
-          <div class="today"><div><b class="num">5</b><span>${p('todayJobs')}</span></div><div><b class="num">${rs(1350 + payout())}</b><span>${p('todayEarn')}</span></div></div>
-          <p class="p-note">${I.shield}<span>${S.lang === 'kn' ? 'ಗೀತಾ ಆರ್. ನಿಮಗೆ ★ 5 ನೀಡಿದ್ದಾರೆ' : 'Geetha R. rated you ★ 5'}</span></p>
+          ${strip([['5', p('todayJobs')], [rs(1350 + payout()), p('todayEarn')], ['5.0 ★', p('rating')]])}
         </div>
         <div class="p-actions"><button class="p-big p-dark" data-go="0" data-reset="p">${p('next')}</button></div>
       </div>`,
@@ -1331,7 +1370,8 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
       if (step === 0) { S.timer = 30; S.net = 'weak'; }
       if (step === 1) { S.acceptState = 'queued'; S.net = 'weak'; }
       if (step === 2) { S.otp = ''; S.otpOpen = false; S.otpBad = false; S.net = 'good'; }
-      if (step === 3) { S.partsOpen = false; S.billState = 'draft'; }
+      if (step === 3) { S.partsOpen = false; S.billState = 'draft'; S.net = 'good'; }
+      if (step === 4) S.net = 'good';
     }
     render(opts.dir || (step === 1 && S.j === 'c' ? 'up' : step < prev ? 'back' : 'fwd'));
     startScreen();
@@ -1365,11 +1405,11 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
   }
 
   function runTimer() {
-    const C2 = 2 * Math.PI * 15;
+    const C2 = 2 * Math.PI * 20;
     every(() => {
       S.timer = S.timer <= 1 ? 30 : S.timer - 1;
       const n = screenEl.querySelector('#tnum'); const r = screenEl.querySelector('#tring');
-      if (n) n.textContent = '0:' + String(S.timer).padStart(2, '0');
+      if (n) n.textContent = S.timer + 's';
       if (r) r.style.strokeDashoffset = C2 * (1 - S.timer / 30);
     }, 1000);
   }
@@ -1384,7 +1424,7 @@ h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2
         go(+el.dataset.go);
       });
     });
-    root.querySelectorAll('.brand-btn').forEach((b) => b.addEventListener('pointermove', (e) => {
+    root.querySelectorAll('.brand-btn, .p-go').forEach((b) => b.addEventListener('pointermove', (e) => {
       const r = b.getBoundingClientRect(); b.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
     }));
     const $ = (s) => root.querySelector(s);
